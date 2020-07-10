@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: 'white',
+    flex:1,
   },
   food: {
     justifyContent: 'center',

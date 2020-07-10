@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {TextInput, ScrollView, View, Image, StyleSheet, Text,} from 'react-native';
-import {Card, Button} from 'react-native-paper';
+import {Card, Button, Dialog, Portal} from 'react-native-paper';
 import routes from '../../../routes';
 
 /* const Req_PayScreen = ({navigation}) => {
@@ -19,6 +19,7 @@ import routes from '../../../routes';
   );
 }; */
 
+
 class Req_PayScreen extends Component {
   constructor(props){
     super(props);
@@ -33,6 +34,7 @@ class Req_PayScreen extends Component {
   render() {
     console.log('props: ', );
     const {navigation} = this.props;
+    
     return (
       <ScrollView style={{backgroundColor: 'white'}}>
       <View style={styles.container}>
@@ -56,7 +58,7 @@ class Req_PayScreen extends Component {
         </View>
         <Card style={styles.cardSpot}>
           <Card.Actions>
-            <Button onPress={() => navigation.navigate(routes.Confirm_ReqPay,
+          <Button onPress={() => navigation.navigate(routes.Confirm_ReqPay,
             {image:this.state.image,
               name:this.state.name,
               price:this.state.price,
