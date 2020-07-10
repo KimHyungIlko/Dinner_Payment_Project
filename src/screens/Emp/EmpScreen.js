@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Button, Text, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, Button, Text, StyleSheet} from 'react-native';
 import routes from '../../../routes';
 
 /* const EmpScreen = ({navigation}) => {
@@ -22,33 +22,57 @@ class EmpScreen extends Component {
   render() {
     const {navigation} = this.props;
     return (
-      <View style={styles.center}>
-        <Text>직원 메인 화면</Text>
-        {/* <Button
-          title="Go to Home Screen"
-          onPress={() => navigation.navigate('Home')}
-        /> */}
-        <Button
-          title="야식대 리스트"
-          onPress={() => navigation.navigate(routes.Ret_List)}
-        />
+      <View style={styles.container}>
+      <View />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate(routes.Ret_List)}>
+        <Text style={styles.buttonText}>음식점 보기</Text>
+      </TouchableOpacity>
 
-        <Button
-          title="지출 내역 조회"
-          // onPress={() => navigation.navigate(routes.Ret_List)}
-        />
-      </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate(routes.Ret_List)}>
+        <Text style={styles.buttonText}>금액 사용 현황</Text>
+      </TouchableOpacity>
+
+      <Text>Empscreenㄴㅇㅁㄹㅇ 입니다</Text>
+    </View>
+
     );
   }
 }
 
 const styles = StyleSheet.create({
-  center: {
+  container: {
     flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+  },
+  button: {
+    marginTop: 110,
+    alignSelf: 'center',
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 30,
+    borderColor: 'gray',
+    backgroundColor: 'transparent',
+    width: 200,
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
     justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+    alignSelf: 'center',
   },
 });
+
 
 export default EmpScreen;

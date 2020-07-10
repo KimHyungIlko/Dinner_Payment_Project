@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Dimensions, TouchableOpacity} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button, Card, Paragraph, Title} from 'react-native-paper';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import routes from '../../../routes';
 // 식당 리스트
-const RetCard = ({retInfo}) => {
+const RetCard = ({retInfo, navigation}) => {
   return (
     <Card>
       <Card.Content
@@ -26,9 +27,17 @@ const RetCard = ({retInfo}) => {
         <Title style={{color: 'white'}}>{retInfo.name}</Title>
         {/* <Paragraph>Card content</Paragraph> */}
       </Card.Content>
-      <Card.Cover source={{uri: retInfo.img}} />
+      <Card.Cover source={{uri: retInfo.image}} />
       <Card.Actions>
-        <Button>Ok</Button>
+      <TouchableOpacity
+      onPress={() => navigation.navigate(routes.Req_Pay,{
+        image: retInfo.image,
+        name: retInfo.name })
+      }
+      style={styles.button}>
+
+            <AntDesign name="arrowright" color="black" size={15} />
+      </TouchableOpacity>
       </Card.Actions>
     </Card>
   );
@@ -40,19 +49,19 @@ class Ret_ListScreen extends Component {
       {
         name: 'restaurant1',
         profit: 1000,
-        img:
+        image:
           'https://image.chosun.com/sitedata/image/201903/06/2019030601012_0.jpg',
       },
       {
         name: 'restaurant2',
         profit: 2000,
-        img:
+        image:
           'https://lh3.googleusercontent.com/proxy/0FC-c_8lpL96I2qu7pKKg5hqGRdowfOhC6sm1NpE00nFGPl_kUM5X99pzXn5RbBiXWg-dZTR1LuznQWXROogdaYD_pTvGwhNpJXTqRK2mCIv0IpA1i7m2j1qDzcLd-8DxUIWalgNoEsQy0HVeMaeJLAm03vxpH6zSOQ8zg',
       },
       {
         name: 'restaurant3',
         profit: 5000,
-        img:
+        image:
           'https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/article/__icsFiles/artimage/2016/03/29/c_km601/911811_540.jpg',
       },
     ];
@@ -66,19 +75,98 @@ class Ret_ListScreen extends Component {
         /> */}
 
         {datas.map((data) => {
-          return <RetCard retInfo={data} />;
+          return <RetCard retInfo={data} navigation={navigation}/>;
         })}
       </ScrollView>
     );
   }
 }
 
+const width = Dimensions.get('screen').width;
 const styles = StyleSheet.create({
-  center: {
+  container: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+  header: {
+    marginTop: 0,
+  },
+  bar: {
+    flex: 1,
+  },
+  ImageBackground: {
+    width: width * 0.4,
+    height: width * 0.2,
+    alignItems: 'center',
+  },
+  title: {
+    color: 'black',
+    marginTop: 30,
+    fontWeight: 'bold',
+    fontSize: 25,
+    left: 5,
+  },
+  flatList: {
+    flex: 1,
+    marginTop: 10,
+    width: width * 0.89,
+    justifyContent: 'center',
+    marginLeft: 15,
+  },
+  item: {
+    flex: 1,
+    height:200,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    //flexDirection: 'row',
+    borderRadius: 10,
+  },
+  image_container: {
+    width: width*0.8,
+    height: 150,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    borderWidth: 5,
+    borderColor: 'white',
+    borderRadius: 10,
+  },
+  content: {
     flex: 1,
     justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
+  name: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  rating: {
+    marginTop: 5,
+    flexDirection: 'row',
+  },
+  button: {
+    width: 30,
+    height: 30,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center',
+  },
+  price_container: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  price: {
+    backgroundColor: 'white',
+    paddingVertical: 5,
+    paddingHorizontal: 50,
+    borderRadius: 50,
+  },
+  textprice: {
+    color: 'black',
+    fontWeight: 'bold',
   },
 });
 
