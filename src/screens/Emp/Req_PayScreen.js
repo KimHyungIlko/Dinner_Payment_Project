@@ -19,9 +19,9 @@ import routes from '../../../routes';
 
 const Dialog_Confirm = ({changeVisible, navigation}) => {
   const [visible, setVisible] = useState(true);
-  const hideDialog = () => {
+  const hideDialog = (change) => {
     setVisible(false);
-    changeVisible(navigation);
+    changeVisible(navigation,change);
   };
 
   return (
@@ -33,7 +33,8 @@ const Dialog_Confirm = ({changeVisible, navigation}) => {
             <Paragraph>결제 요청을 하시겠습니까?</Paragraph>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={hideDialog}>확인</Button>
+            <Button onPress={() => hideDialog(true)}>확인</Button>
+            <Button onPress={() => hideDialog(false)}>취소</Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>
@@ -50,6 +51,7 @@ class Req_PayScreen extends Component {
       people: 1,
       price: 0,
       visible: false,
+      index:0,
     };
   }
 
@@ -62,20 +64,21 @@ class Req_PayScreen extends Component {
   };
 
   // 다이얼로그 컴포넌트에서 최종 확인을 누르면
-  changeVisible = (navigation) => {
+  changeVisible = (navigation,change) => {
     this.setState({
       ...this.state,
       visible: false,
     });
 
     // navigate
-    // data 전달할 때, 각각 전달하기 보단 obj 형태로
+    if(change==true){// data 전달할 때, 각각 전달하기 보단 obj 형태로
     navigation.navigate(routes.Confirm_ReqPay, {
       image: this.state.image,
       name: this.state.name,
       price: this.state.price,
       people: this.state.people,
     });
+  }
   };
 
   render() {
