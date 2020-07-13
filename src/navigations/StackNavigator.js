@@ -2,15 +2,15 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/Home/HomeScreen';
 import EmpScreen from '../screens/Emp/EmpScreen';
-//import Analyze_HomeScreen from '../screens/Emp/Analyze_HomeScreen';
-import Emp_PayScreen from '../screens/Emp_PayDept/Emp_PayDeptScreen';
+import Emp_PayDeptScreen from '../screens/Emp_PayDept/Emp_PayDeptScreen';
+import Info_PayScreen from '../screens/Emp_PayDept/Info_PayScreen';
+import FdsScreen from '../screens/Emp_PayDept/FdsScreen';
 import routes from '../../routes';
 import Ret_ListScreen from '../screens/Emp/Ret_ListScreen';
 import Req_PayScreen from '../screens/Emp/Req_PayScreen';
 import Confirm_ReqPayScreen from '../screens/Emp/Confirm_ReqPayScreen';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ret_ProfitScreen from '../screens/Ret_Manager/Ret_ProfitScreen';
-import TabNavigator from './TabNavigator';
+import {Tab_Emp_Anl, Tab_Ret_Anl} from './TabNavigator';
 /*
     1. 메인 화면(야식도 식후경) -- home
 
@@ -106,7 +106,7 @@ const StackNavigator_Emp = ({navigation}) => {
       />
       <Stack.Screen
         name={routes.Analyze_Home}
-        component={TabNavigator}
+        component={Tab_Emp_Anl}
         options={{title: '금액 사용 현황'}}
       />
       {/* 지출 내역 route */}
@@ -136,7 +136,7 @@ const StackNavigator_RetManager = ({navigation}) => {
           />
         ),
       }}>
-      <Stack.Screen name={routes.Ret_Profit} component={Ret_ProfitScreen} />
+      <Stack.Screen name={routes.Ret_Profit} component={Tab_Ret_Anl} />
     </Stack.Navigator>
   );
 };
@@ -164,10 +164,19 @@ const StackNavigator_Emp_PayDept = ({navigation}) => {
       }}>
       <Stack.Screen
         name={routes.Emp_PayDept}
-        component={Emp_PayScreen}
+        component={Emp_PayDeptScreen}
         options={{title: '총무부'}}
       />
-
+      <Stack.Screen
+        name={routes.Info_Pay}
+        component={Info_PayScreen}
+        options={{title: '총무부'}}
+      />
+      <Stack.Screen
+        name={routes.Fds}
+        component={FdsScreen}
+        options={{title: '총무부'}}
+      />
       {/* 결제정보, 야식대 FDS route */}
     </Stack.Navigator>
   );

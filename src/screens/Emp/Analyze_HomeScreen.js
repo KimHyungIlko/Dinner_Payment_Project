@@ -7,7 +7,7 @@ class Analyze_GraphScreen extends Component {
   render() {
     return (
         <NavigationContainer>
-        <TabNavigator />
+        <Tab_Emp_Anl />
       </NavigationContainer>
     );
   }
