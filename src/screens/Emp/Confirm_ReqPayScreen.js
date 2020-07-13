@@ -1,26 +1,32 @@
 import React, {Component} from 'react';
-import {View, Button, Text, StyleSheet,Image} from 'react-native';
+import {View, Button, Text, StyleSheet, Image} from 'react-native';
 import routes from '../../../routes';
 
 class Confirm_ReqPayScreen extends Component {
   render() {
+    console.log('confirm screen');
+
     const {navigation} = this.props;
     return (
-       <View style={styles.container}>
-          <Image style={styles.food} source={{uri : this.props.route.params.image}} />
-          <View style={styles.textline}>
-            <Text style={styles.staticText}>{this.props.route.params.people}</Text>
-            <Text style={styles.staticText}>명</Text>
-          </View>
-          <View style={styles.textline}>
-            <Text style={styles.staticText}>{this.props.route.params.price}</Text>
-            <Text style={styles.staticText}>원</Text>
-            
-          </View>
-          <View style={styles.textline}>
-            <Text style={styles.staticText2}>최종 결제 되었습니다</Text>
-          </View>
+      <View style={styles.container}>
+        <Image
+          style={styles.food}
+          source={{uri: this.props.route.params.image}}
+        />
+        <View style={styles.textline}>
+          <Text style={styles.staticText}>
+            {this.props.route.params.people}
+          </Text>
+          <Text style={styles.staticText}>명</Text>
         </View>
+        <View style={styles.textline}>
+          <Text style={styles.staticText}>{this.props.route.params.price}</Text>
+          <Text style={styles.staticText}>원</Text>
+        </View>
+        <View style={styles.textline}>
+          <Text style={styles.staticText2}>최종 결제 되었습니다</Text>
+        </View>
+      </View>
     );
   }
 }
@@ -29,7 +35,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: 'white',
-    flex:1,
+    flex: 1,
   },
   food: {
     justifyContent: 'center',
@@ -61,6 +67,5 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
 });
-
 
 export default Confirm_ReqPayScreen;

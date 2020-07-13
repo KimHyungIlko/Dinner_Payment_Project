@@ -1,73 +1,136 @@
-import React, {Component} from 'react';
-import {TextInput, ScrollView, View, Image, StyleSheet, Text,} from 'react-native';
-import {Card, Button, Dialog, Portal} from 'react-native-paper';
+import React, {Component, useState} from 'react';
+import {
+  TextInput,
+  ScrollView,
+  View,
+  Image,
+  StyleSheet,
+  Text,
+} from 'react-native';
+import {
+  Card,
+  Button,
+  Dialog,
+  Portal,
+  Paragraph,
+  Provider,
+} from 'react-native-paper';
 import routes from '../../../routes';
 
-/* const Req_PayScreen = ({navigation}) => {
-  return (
-    <View style={styles.center}>
-      <Text>This is the 결제 요청 screen</Text>
-      <Button
-        title="Go to Home Screen"
-        onPress={() => navigation.navigate('Home')}
-      />
-      <Button
-        title="Go to 업주 확인 명세서 Screen"
-        onPress={() => navigation.navigate(routes.Confirm_Req)}
-      />
-    </View>
-  );
-}; */
+const Dialog_Confirm = ({changeVisible, navigation}) => {
+  const [visible, setVisible] = useState(true);
+  const hideDialog = () => {
+    setVisible(false);
+    changeVisible(navigation);
+  };
 
+  return (
+    <Provider style={{width: '100%'}}>
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          {/* <Dialog.Title>Alert</Dialog.Title> */}
+          <Dialog.Content>
+            <Paragraph>결제 요청을 하시겠습니까?</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>확인</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+    </Provider>
+  );
+};
 
 class Req_PayScreen extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-        name: this.props.route.params.name,
-        image: this.props.route.params.image,
-        people: 1,
-        price: 0,
-    }
-}
+    this.state = {
+      name: this.props.route.params.name,
+      image: this.props.route.params.image,
+      people: 1,
+      price: 0,
+      visible: false,
+    };
+  }
+
+  // 확인 버튼 클릭 시 -> 다이얼로그가 보이도록
+  handleConfirmBtn = () => {
+    this.setState({
+      ...this.state,
+      visible: true,
+    });
+  };
+
+  // 다이얼로그 컴포넌트에서 최종 확인을 누르면
+  changeVisible = (navigation) => {
+    this.setState({
+      ...this.state,
+      visible: false,
+    });
+
+    // navigate
+    // data 전달할 때, 각각 전달하기 보단 obj 형태로
+    navigation.navigate(routes.Confirm_ReqPay, {
+      image: this.state.image,
+      name: this.state.name,
+      price: this.state.price,
+      people: this.state.people,
+    });
+  };
 
   render() {
-    console.log('props: ', );
     const {navigation} = this.props;
-    
+    const {visible} = this.state;
+
+    console.log('req_pay');
+    console.log('visible: ', visible);
+
     return (
       <ScrollView style={{backgroundColor: 'white'}}>
-      <View style={styles.container}>
-        <Image style={styles.food} source={{uri: this.state.image}} />
+        <View style={styles.container}>
+          <Image style={styles.food} source={{uri: this.state.image}} />
 
-        <View style={styles.textline}>
-          <TextInput
-            style={styles.textline}
-            placeholder="인원을 입력하세요"
-            onChangeText={people => this.setState({people})}
-          />
-          <Text style={styles.staticText}>명</Text>
+          <View style={styles.textline}>
+            <TextInput
+              style={styles.textline}
+              placeholder="인원을 입력하세요"
+              onChangeText={(people) => this.setState({people})}
+            />
+            <Text style={styles.staticText}>명</Text>
+          </View>
+          <View style={styles.textline}>
+            <TextInput
+              style={styles.textline}
+              placeholder="금액을 입력하세요"
+              onChangeText={(price) => this.setState({price})}
+            />
+            <Text style={styles.staticText}>원</Text>
+          </View>
+          <Card style={styles.cardSpot}>
+            <Card.Actions>
+              <Button
+                onPress={
+                  () => this.handleConfirmBtn()
+                  // navigation.navigate(routes.Confirm_ReqPay, {
+                  //   image: this.state.image,
+                  //   name: this.state.name,
+                  //   price: this.state.price,
+                  //   people: this.state.people,
+                  // })
+                }>
+                확인
+              </Button>
+            </Card.Actions>
+          </Card>
         </View>
-        <View style={styles.textline}>
-          <TextInput
-            style={styles.textline}
-            placeholder="금액을 입력하세요"
-            onChangeText={price => this.setState({price})}
+
+        {visible && (
+          <Dialog_Confirm
+            changeVisible={this.changeVisible}
+            navigation={navigation}
           />
-          <Text style={styles.staticText}>원</Text>
-        </View>
-        <Card style={styles.cardSpot}>
-          <Card.Actions>
-          <Button onPress={() => navigation.navigate(routes.Confirm_ReqPay,
-            {image:this.state.image,
-              name:this.state.name,
-              price:this.state.price,
-              people:this.state.people})}>확인</Button>
-            <Button>취소</Button>
-          </Card.Actions>
-        </Card>
-      </View>
-    </ScrollView>
+        )}
+      </ScrollView>
     );
   }
 }
