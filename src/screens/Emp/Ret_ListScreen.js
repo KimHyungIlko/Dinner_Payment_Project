@@ -75,7 +75,7 @@ class Ret_ListScreen extends Component {
         /> */}
 
         {datas.map((data) => {
-          return <RetCard key={data.image} retInfo={data} navigation={navigation}/>;
+          return <RetCard key={data.name} retInfo={data} navigation={navigation}/>;
         })}
       </ScrollView>
     );
