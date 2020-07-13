@@ -91,6 +91,7 @@ class Req_PayScreen extends Component {
     return (
       <ScrollView style={{backgroundColor: 'white'}}>
         <View style={styles.container}>
+          <Text>{this.state.name}</Text>
           <Image style={styles.food} source={{uri: this.state.image}} />
 
           <View style={styles.textline}>

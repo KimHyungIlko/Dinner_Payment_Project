@@ -7,6 +7,7 @@ class Confirm_ReqPayScreen extends Component {
     const {navigation} = this.props;
     return (
        <View style={styles.container}>
+          <Text>{this.props.route.params.name}</Text>
           <Image style={styles.food} source={{uri : this.props.route.params.image}} />
           <View style={styles.textline}>
             <Text style={styles.staticText}>{this.props.route.params.people}</Text>
