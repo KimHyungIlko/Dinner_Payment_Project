@@ -8,7 +8,9 @@ const routes = {
   Ret_List: 'Ret_List', // 야식대 list 섹션
   Req_Pay: 'Req_Pay', // 결제 요청 섹션
   Confirm_ReqPay: 'Confirm_ReqPay', // 업주 확인용 섹션
-
+  Analyze_Home:'Analyze_Home',
+  Analyze_Graph:'Analyze_Graph',
+  Analyze_List:'Analyze_List',
   // 업주용
   Ret_Profit: 'Ret_Profit', // 해당 음식점 매출 현황 섹션
 

@@ -32,7 +32,7 @@ class EmpScreen extends Component {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate(routes.Ret_List)}>
+        onPress={() => navigation.navigate(routes.Analyze_Home)}>
         <Text style={styles.buttonText}>금액 사용 현황</Text>
       </TouchableOpacity>
 

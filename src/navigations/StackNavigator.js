@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/Home/HomeScreen';
 import EmpScreen from '../screens/Emp/EmpScreen';
+//import Analyze_HomeScreen from '../screens/Emp/Analyze_HomeScreen';
 import Emp_PayScreen from '../screens/Emp_PayDept/Emp_PayDeptScreen';
 import routes from '../../routes';
 import Ret_ListScreen from '../screens/Emp/Ret_ListScreen';
@@ -9,7 +10,7 @@ import Req_PayScreen from '../screens/Emp/Req_PayScreen';
 import Confirm_ReqPayScreen from '../screens/Emp/Confirm_ReqPayScreen';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ret_ProfitScreen from '../screens/Ret_Manager/Ret_ProfitScreen';
-
+import TabNavigator from './TabNavigator';
 /*
     1. 메인 화면(야식도 식후경) -- home
 
@@ -103,7 +104,11 @@ const StackNavigator_Emp = ({navigation}) => {
         component={Confirm_ReqPayScreen}
         options={{title: '결제 확인'}}
       />
-
+      <Stack.Screen
+        name={routes.Analyze_Home}
+        component={TabNavigator}
+        options={{title: '금액 사용 현황'}}
+      />
       {/* 지출 내역 route */}
     </Stack.Navigator>
   );
