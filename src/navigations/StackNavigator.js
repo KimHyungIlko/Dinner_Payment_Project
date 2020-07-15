@@ -72,7 +72,7 @@ const StackNavigator_Emp = ({navigation}) => {
         },
         headerTintColor: 'white',
         headerBackTitle: 'Back',
-        headerTitleAlign:'center',
+        headerTitleAlign: 'center',
         headerRight: () => (
           <MaterialIcons.Button
             name="person-outline"
