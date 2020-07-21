@@ -1,8 +1,17 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {Table, TableWrapper, Row, Col} from 'react-native-table-component';
+import {
+  VictoryBar,
+  VictoryLine,
+  VictoryChart,
+  VictoryAxis,
+  VictoryZoomContainer,
+  VictoryBrushContainer,
+  VictoryTheme,
+} from 'victory-native';
 
-class Analyze_ListScreen extends Component {
+class MAnalyze_ListScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,7 +58,7 @@ class Analyze_ListScreen extends Component {
                 textStyle={styles.text}
               />
             </Table>
-            <ScrollView style={styles.dataWrapper}>
+            <ScrollView>
               <TableWrapper
                 borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}
                 style={styles.wrapper}>
@@ -78,19 +87,37 @@ class Analyze_ListScreen extends Component {
             </ScrollView>
           </View>
         </ScrollView>
+
+        <VictoryChart
+          width={400}
+          height={300}
+          theme={VictoryTheme.material}
+          padding={{top: 30, left: 30, right: 50, bottom: 30}}>
+          <VictoryBar
+            style={{
+              data: {stroke: '#c43a31'},
+              parent: {border: '1px solid #ccc'},
+            }}
+            data={[
+              {x: '경영지원부', y: 10},
+              {x: '그룹사사업본부', y: 3},
+              {x: '은행사업본부', y: 5},
+              {x: '디지털사업본부', y: 4},
+            ]}
+          />
+        </VictoryChart>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff'},
+  container: {flex: 1, padding: 16, paddingTop: 10, backgroundColor: '#fff'},
   header: {height: 50, backgroundColor: '#537791'},
   text: {textAlign: 'center', fontWeight: '100'},
-  dataWrapper: {marginTop: -1},
   title: {flex: 1, backgroundColor: '#f6f8fa'},
   row: {height: 40, backgroundColor: '#E7E6E1'},
   wrapper: {flexDirection: 'row'},
 });
 
-export default Analyze_ListScreen;
+export default MAnalyze_ListScreen;

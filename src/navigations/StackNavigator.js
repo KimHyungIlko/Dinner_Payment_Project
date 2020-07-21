@@ -10,7 +10,7 @@ import Ret_ListScreen from '../screens/Emp/Ret_ListScreen';
 import Req_PayScreen from '../screens/Emp/Req_PayScreen';
 import Confirm_ReqPayScreen from '../screens/Emp/Confirm_ReqPayScreen';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {Tab_Emp_Anl, Tab_Ret_Anl} from './TabNavigator';
+import {Tab_Emp_Anl, Tab_Mgr_Anl} from './TabNavigator';
 /*
     1. 메인 화면(야식도 식후경) -- home
 
@@ -73,7 +73,7 @@ const StackNavigator_Emp = ({navigation}) => {
         },
         headerTintColor: 'white',
         headerBackTitle: 'Back',
-        headerTitleAlign:'center',
+        headerTitleAlign: 'center',
         headerRight: () => (
           <MaterialIcons.Button
             name="person-outline"
@@ -169,7 +169,7 @@ const StackNavigator_Emp_PayDept = ({navigation}) => {
       />
       <Stack.Screen
         name={routes.Info_Pay}
-        component={Info_PayScreen}
+        component={Tab_Mgr_Anl}
         options={{title: '총무부'}}
       />
       <Stack.Screen

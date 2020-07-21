@@ -21,7 +21,7 @@ const Dialog_Confirm = ({changeVisible, navigation}) => {
   const [visible, setVisible] = useState(true);
   const hideDialog = (change) => {
     setVisible(false);
-    changeVisible(navigation,change);
+    changeVisible(navigation, change);
   };
 
   return (
@@ -51,7 +51,7 @@ class Req_PayScreen extends Component {
       people: 1,
       price: 0,
       visible: false,
-      index:0,
+      index: 0,
     };
   }
 
@@ -64,21 +64,22 @@ class Req_PayScreen extends Component {
   };
 
   // 다이얼로그 컴포넌트에서 최종 확인을 누르면
-  changeVisible = (navigation,change) => {
+  changeVisible = (navigation, change) => {
     this.setState({
       ...this.state,
       visible: false,
     });
 
     // navigate
-    if(change==true){// data 전달할 때, 각각 전달하기 보단 obj 형태로
-    navigation.navigate(routes.Confirm_ReqPay, {
-      image: this.state.image,
-      name: this.state.name,
-      price: this.state.price,
-      people: this.state.people,
-    });
-  }
+    if (change == true) {
+      // data 전달할 때, 각각 전달하기 보단 obj 형태로
+      navigation.navigate(routes.Confirm_ReqPay, {
+        image: this.state.image,
+        name: this.state.name,
+        price: this.state.price,
+        people: this.state.people,
+      });
+    }
   };
 
   render() {
@@ -91,10 +92,10 @@ class Req_PayScreen extends Component {
     return (
       <ScrollView style={{backgroundColor: 'white'}}>
         <View style={styles.container}>
-          <Text>{this.state.name}</Text>
+          <Text style={styles.title}>{this.state.name}</Text>
           <Image style={styles.food} source={{uri: this.state.image}} />
 
-          <View style={styles.textline}>
+          <View style={styles.pos}>
             <TextInput
               style={styles.textline}
               placeholder="인원을 입력하세요"
@@ -102,7 +103,7 @@ class Req_PayScreen extends Component {
             />
             <Text style={styles.staticText}>명</Text>
           </View>
-          <View style={styles.textline}>
+          <View style={styles.pos}>
             <TextInput
               style={styles.textline}
               placeholder="금액을 입력하세요"
@@ -144,6 +145,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
+  title: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: 'orange',
+  },
   food: {
     flex: 1,
     justifyContent: 'center',
@@ -154,6 +160,14 @@ const styles = StyleSheet.create({
     marginTop: 40,
     borderRadius: 90,
     borderWidth: 10,
+  },
+  pos: {
+    height: 40,
+    marginTop: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#eee',
+    fontSize: 17,
   },
   textline: {
     height: 40,

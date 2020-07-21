@@ -1,12 +1,12 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 
-import TabNavigator from "../../navigations/TabNavigator";
+import TabNavigator from '../../navigations/TabNavigator';
 
 class Analyze_GraphScreen extends Component {
   render() {
     return (
-        <NavigationContainer>
+      <NavigationContainer>
         <Tab_Emp_Anl />
       </NavigationContainer>
     );

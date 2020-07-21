@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
 class Info_PayScreen extends Component {
   render() {
     return (
-      <View style={styles.center}>
-        <Text>Info_PayScreen</Text>
-      </View>
+      <NavigationContainer>
+        <Tab_Mgr_Anl />
+      </NavigationContainer>
     );
   }
 }

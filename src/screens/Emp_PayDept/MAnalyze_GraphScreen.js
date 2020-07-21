@@ -21,7 +21,7 @@ const data = [
   {date: new Date(2015, 5, 1), price: 4700},
 ];
 
-class Analyze_GraphScreen extends Component {
+class MAnalyze_GraphScreen extends Component {
   constructor() {
     super();
     this.state = {};
@@ -109,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Analyze_GraphScreen;
+export default MAnalyze_GraphScreen;

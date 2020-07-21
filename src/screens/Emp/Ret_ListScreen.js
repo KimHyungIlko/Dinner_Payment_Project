@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet,Dimensions, TouchableOpacity} from 'react-native';
+import {StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button, Card, Paragraph, Title} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -29,15 +29,16 @@ const RetCard = ({retInfo, navigation}) => {
       </Card.Content>
       <Card.Cover source={{uri: retInfo.image}} />
       <Card.Actions>
-      <TouchableOpacity
-      onPress={() => navigation.navigate(routes.Req_Pay,{
-        image: retInfo.image,
-        name: retInfo.name })
-      }
-      style={styles.button}>
-
-            <AntDesign name="arrowright" color="black" size={15} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(routes.Req_Pay, {
+              image: retInfo.image,
+              name: retInfo.name,
+            })
+          }
+          style={styles.button}>
+          <AntDesign name="arrowright" color="black" size={15} />
+        </TouchableOpacity>
       </Card.Actions>
     </Card>
   );
@@ -64,6 +65,18 @@ class Ret_ListScreen extends Component {
         image:
           'https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/article/__icsFiles/artimage/2016/03/29/c_km601/911811_540.jpg',
       },
+      {
+        name: 'restaurant4',
+        profit: 5000,
+        image:
+          'https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/article/__icsFiles/artimage/2016/03/29/c_km601/911811_540.jpg',
+      },
+      {
+        name: 'restaurant5',
+        profit: 5000,
+        image:
+          'https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/article/__icsFiles/artimage/2016/03/29/c_km601/911811_540.jpg',
+      },
     ];
 
     const {navigation} = this.props;
@@ -75,7 +88,9 @@ class Ret_ListScreen extends Component {
         /> */}
 
         {datas.map((data) => {
-          return <RetCard key={data.name} retInfo={data} navigation={navigation}/>;
+          return (
+            <RetCard key={data.name} retInfo={data} navigation={navigation} />
+          );
         })}
       </ScrollView>
     );
@@ -115,14 +130,14 @@ const styles = StyleSheet.create({
   },
   item: {
     flex: 1,
-    height:200,
+    height: 200,
     paddingVertical: 10,
     paddingHorizontal: 10,
     //flexDirection: 'row',
     borderRadius: 10,
   },
   image_container: {
-    width: width*0.8,
+    width: width * 0.8,
     height: 150,
   },
   image: {
