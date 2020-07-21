@@ -84,7 +84,14 @@ class Analyze_ListScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff'},
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    padding: 16,
+    paddingTop: 30,
+    backgroundColor: '#fff',
+  },
   header: {height: 50, backgroundColor: '#537791'},
   text: {textAlign: 'center', fontWeight: '100'},
   dataWrapper: {marginTop: -1},

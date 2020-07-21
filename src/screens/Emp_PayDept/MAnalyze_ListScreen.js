@@ -48,6 +48,7 @@ class MAnalyze_ListScreen extends Component {
 
     return (
       <View style={styles.container}>
+        <Text style={styles.head}>부서별 야식대 사용금액</Text>
         <ScrollView horizontal={true}>
           <View>
             <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
@@ -87,32 +88,19 @@ class MAnalyze_ListScreen extends Component {
             </ScrollView>
           </View>
         </ScrollView>
-
-        <VictoryChart
-          width={400}
-          height={300}
-          theme={VictoryTheme.material}
-          padding={{top: 30, left: 30, right: 50, bottom: 30}}>
-          <VictoryBar
-            style={{
-              data: {stroke: '#c43a31'},
-              parent: {border: '1px solid #ccc'},
-            }}
-            data={[
-              {x: '경영지원부', y: 10},
-              {x: '그룹사사업본부', y: 3},
-              {x: '은행사업본부', y: 5},
-              {x: '디지털사업본부', y: 4},
-            ]}
-          />
-        </VictoryChart>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 16, paddingTop: 10, backgroundColor: '#fff'},
+  container: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    //paddingTop: 10,
+  },
+  head: {textAlign: 'center', textAlignVertical: 'bottom', flex: 1},
   header: {height: 50, backgroundColor: '#537791'},
   text: {textAlign: 'center', fontWeight: '100'},
   title: {flex: 1, backgroundColor: '#f6f8fa'},
