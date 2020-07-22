@@ -4,6 +4,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Button, Card, Paragraph, Title} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import routes from '../../../routes';
+import axios from 'axios';
 // 식당 리스트
 const RetCard = ({retInfo, navigation}) => {
   return (
