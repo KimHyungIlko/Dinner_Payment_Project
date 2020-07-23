@@ -1,12 +1,19 @@
 import React, {Component} from 'react';
-import {StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  TouchableRipple,
+  View,
+} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button, Card, Paragraph, Title} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import routes from '../../../routes';
-import axios from 'axios';
+import axios from 'react-native-axios';
 // 식당 리스트
 const RetCard = ({retInfo, navigation}) => {
+  console.log('retcard: ', retInfo);
   return (
     <Card>
       <Card.Content
@@ -26,60 +33,44 @@ const RetCard = ({retInfo, navigation}) => {
           zIndex: 2,
         }}>
         <Title style={{color: 'white'}}>{retInfo.name}</Title>
-        {/* <Paragraph>Card content</Paragraph> */}
       </Card.Content>
-      <Card.Cover source={{uri: retInfo.image}} />
-      <Card.Actions>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(routes.Req_Pay, {
-              image: retInfo.image,
-              name: retInfo.name,
-            })
-          }
-          style={styles.button}>
-          <AntDesign name="arrowright" color="black" size={15} />
-        </TouchableOpacity>
+      <Card.Cover source={{uri: retInfo.ret_img}} />
+      <Card style={{flexDirection: 'row'}}></Card>
+      <Card.Actions style={{justifyContent: 'space-between'}}>
+        <Paragraph>매출액 : {retInfo.profit}</Paragraph>
+
+        <View style={{flexDirection: 'row'}}>
+          <Paragraph>결제하기</Paragraph>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(routes.Req_Pay, {
+                image: retInfo.ret_img,
+                name: retInfo.name,
+              })
+            }
+            style={styles.button}>
+            <AntDesign name="arrowright" color="black" size={15} />
+          </TouchableOpacity>
+        </View>
       </Card.Actions>
     </Card>
   );
 };
 
 class Ret_ListScreen extends Component {
-  render() {
-    const datas = [
-      {
-        name: 'restaurant1',
-        profit: 1000,
-        image:
-          'https://image.chosun.com/sitedata/image/201903/06/2019030601012_0.jpg',
-      },
-      {
-        name: 'restaurant2',
-        profit: 2000,
-        image:
-          'https://lh3.googleusercontent.com/proxy/0FC-c_8lpL96I2qu7pKKg5hqGRdowfOhC6sm1NpE00nFGPl_kUM5X99pzXn5RbBiXWg-dZTR1LuznQWXROogdaYD_pTvGwhNpJXTqRK2mCIv0IpA1i7m2j1qDzcLd-8DxUIWalgNoEsQy0HVeMaeJLAm03vxpH6zSOQ8zg',
-      },
-      {
-        name: 'restaurant3',
-        profit: 5000,
-        image:
-          'https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/article/__icsFiles/artimage/2016/03/29/c_km601/911811_540.jpg',
-      },
-      {
-        name: 'restaurant4',
-        profit: 5000,
-        image:
-          'https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/article/__icsFiles/artimage/2016/03/29/c_km601/911811_540.jpg',
-      },
-      {
-        name: 'restaurant5',
-        profit: 5000,
-        image:
-          'https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/article/__icsFiles/artimage/2016/03/29/c_km601/911811_540.jpg',
-      },
-    ];
+  constructor(props) {
+    super(props);
+    this.state = {datas: []};
+  }
 
+  async componentDidMount() {
+    let datas = await axios.get('http://54.180.86.174/restaurants');
+    // console.log('ret listScreen', datas.data);
+    this.setState({datas: datas.data});
+  }
+  render() {
+    //console.log('//////////////////', this.state);
+    const {datas} = this.state;
     const {navigation} = this.props;
     return (
       <ScrollView>
@@ -90,7 +81,7 @@ class Ret_ListScreen extends Component {
 
         {datas.map((data) => {
           return (
-            <RetCard key={data.name} retInfo={data} navigation={navigation} />
+            <RetCard key={data.id} retInfo={data} navigation={navigation} />
           );
         })}
       </ScrollView>

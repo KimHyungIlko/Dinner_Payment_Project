@@ -16,16 +16,17 @@ import {
   Provider,
 } from 'react-native-paper';
 import routes from '../../../routes';
-
+import axios from 'react-native-axios';
 const Dialog_Confirm = ({changeVisible, navigation}) => {
   const [visible, setVisible] = useState(true);
+
   const hideDialog = (change) => {
     setVisible(false);
     changeVisible(navigation, change);
   };
 
   return (
-    <Provider style={{width: '100%'}}>
+    <Provider style={{width: '100%', height: '100%'}}>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
           {/* <Dialog.Title>Alert</Dialog.Title> */}
@@ -113,18 +114,7 @@ class Req_PayScreen extends Component {
           </View>
           <Card style={styles.cardSpot}>
             <Card.Actions>
-              <Button
-                onPress={
-                  () => this.handleConfirmBtn()
-                  // navigation.navigate(routes.Confirm_ReqPay, {
-                  //   image: this.state.image,
-                  //   name: this.state.name,
-                  //   price: this.state.price,
-                  //   people: this.state.people,
-                  // })
-                }>
-                확인
-              </Button>
+              <Button onPress={() => this.handleConfirmBtn()}>확인</Button>
             </Card.Actions>
           </Card>
         </View>
@@ -158,7 +148,7 @@ const styles = StyleSheet.create({
     width: 230,
     height: 230,
     marginTop: 40,
-    borderRadius: 90,
+    borderRadius: 120,
     borderWidth: 10,
   },
   pos: {

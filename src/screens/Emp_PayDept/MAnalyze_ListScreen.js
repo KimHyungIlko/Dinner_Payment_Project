@@ -10,8 +10,23 @@ import {
   VictoryBrushContainer,
   VictoryTheme,
 } from 'victory-native';
-
+import axios from 'react-native-axios';
 class MAnalyze_ListScreen extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     tableHead: [],
+  //     tableTitle: [],
+  //     widthArr: [120, 120, 120, 120, 120, 120, 120],
+  //   };
+  // }
+
+  // async componentDidMount() {
+  //   let datas = axios.get('http://54.180.86.174/departments/costs');
+  //   console.log('datas listScreen//////////////', datas);
+  //   this.setState({tableHead: datas.data});
+  // }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -103,7 +118,7 @@ const styles = StyleSheet.create({
   head: {textAlign: 'center', textAlignVertical: 'bottom', flex: 1},
   header: {height: 50, backgroundColor: '#537791'},
   text: {textAlign: 'center', fontWeight: '100'},
-  title: {flex: 1, backgroundColor: '#f6f8fa'},
+  title: {flex: 1, backgroundColor: 'yellow'},
   row: {height: 40, backgroundColor: '#E7E6E1'},
   wrapper: {flexDirection: 'row'},
 });
