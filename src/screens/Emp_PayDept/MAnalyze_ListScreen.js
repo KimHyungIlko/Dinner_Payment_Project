@@ -12,54 +12,59 @@ import {
 } from 'victory-native';
 import axios from 'react-native-axios';
 class MAnalyze_ListScreen extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     tableHead: [],
-  //     tableTitle: [],
-  //     widthArr: [120, 120, 120, 120, 120, 120, 120],
-  //   };
-  // }
-
-  // async componentDidMount() {
-  //   let datas = axios.get('http://54.180.86.174/departments/costs');
-  //   console.log('datas listScreen//////////////', datas);
-  //   this.setState({tableHead: datas.data});
-  // }
-
   constructor(props) {
     super(props);
     this.state = {
-      tableHead: [
-        '',
-        '이치류',
-        '오레노라멘',
-        '쿠이신보',
-        '카밀로라자네리아',
-        '오스테리아샘킴',
-        '총 합계',
-      ],
-      tableTitle: [
-        '경영지원부',
-        '그룹사사업본부',
-        '은행사업본부',
-        '디지털사업본부',
-        '총 합계',
-      ],
+      tableHead: [' '],
+      tableTitle: [],
+      costs: [],
       widthArr: [120, 120, 120, 120, 120, 120, 120],
     };
   }
 
+  async componentDidMount() {
+    let datas = await axios.get('http://54.180.86.174/departments/costs');
+    let datas2 = await axios.get('http://54.180.86.174/restaurants/profits');
+
+    let tablehead_list = [],
+      tabletitle_list = [],
+      rowdata = [],
+      tableData = [];
+    tablehead_list.push(' ');
+    for (let i = 0; i < datas.data.length; i++) {
+      tabletitle_list.push(datas.data[i].dept_name);
+      tablehead_list.push(datas.data[i].ret_name);
+      rowdata.push(datas.data[i].costs);
+      if (
+        datas.data[i].ret_name == 'ALL Restaurants' &&
+        i != datas.data.length - 1
+      ) {
+        tableData.push(rowdata);
+        rowdata = [];
+      }
+    }
+    //중복제거
+    tabletitle_list = [...new Set(tabletitle_list)];
+    tablehead_list = [...new Set(tablehead_list)];
+
+    ////////////////////////////////
+    let ret_costs = [];
+    for (let i = 0; i < datas2.data.length; i++) {
+      ret_costs.push(datas2.data[i].profit);
+    }
+
+    ret_costs.push(datas.data[datas.data.length - 1].costs);
+    tableData.push(ret_costs);
+
+    this.setState({
+      tableTitle: tabletitle_list,
+      tableHead: tablehead_list,
+      costs: tableData,
+    });
+  }
+
   render() {
     const state = this.state;
-    const tableData = [];
-    for (let i = 0; i < 5; i += 1) {
-      const rowData = [];
-      for (let j = 0; j < 6; j += 1) {
-        rowData.push(`${i}${j}`);
-      }
-      tableData.push(rowData);
-    }
 
     return (
       <View style={styles.container}>
@@ -86,7 +91,7 @@ class MAnalyze_ListScreen extends Component {
                   textStyle={styles.text}
                 />
                 <Table>
-                  {tableData.map((rowData, index) => (
+                  {state.costs.map((rowData, index) => (
                     <Row
                       key={index}
                       data={rowData}
@@ -115,11 +120,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     //paddingTop: 10,
   },
-  head: {textAlign: 'center', textAlignVertical: 'bottom', flex: 1},
-  header: {height: 50, backgroundColor: '#537791'},
+  head: {
+    textAlign: 'left',
+    textAlignVertical: 'bottom',
+    flex: 1,
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#7D756B',
+  },
+  header: {height: 50, backgroundColor: '#ECB03E'},
   text: {textAlign: 'center', fontWeight: '100'},
-  title: {flex: 1, backgroundColor: 'yellow'},
-  row: {height: 40, backgroundColor: '#E7E6E1'},
+  title: {flex: 1, backgroundColor: '#AFAAAB'},
+  row: {height: 40, backgroundColor: '#F5D69A'},
   wrapper: {flexDirection: 'row'},
 });
 
