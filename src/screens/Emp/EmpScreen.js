@@ -54,7 +54,6 @@ class EmpScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //flexDirection: 'column',
     backgroundColor: 'transparent',
     backgroundColor: 'white',
   },
@@ -62,7 +61,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: '#F5D69A',
-    // marginTop: 50,
   },
   button: {
     marginTop: 80,
@@ -77,15 +75,13 @@ const styles = StyleSheet.create({
   logo: {
     width: 80,
     height: 25,
-
     position: 'absolute',
     bottom: 10,
     right: 10,
   },
   buttonText: {
-    fontFamily: 'Jua-Regular',
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontFamily: 'DoHyeon-Regular',
+    fontSize: 25,
     color: 'white',
     alignSelf: 'center',
   },

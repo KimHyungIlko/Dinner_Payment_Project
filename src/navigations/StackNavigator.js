@@ -48,7 +48,7 @@ const StackNavigator_Home = ({navigation}) => {
         headerBackTitle: 'Back',
         headerRight: () => (
           <MaterialIcons.Button
-            name="person-outline"
+            name="dehaze"
             color="black"
             size={25}
             backgroundColor="transparent"
@@ -72,10 +72,10 @@ const StackNavigator_Emp = ({navigation}) => {
         },
         headerTintColor: 'black',
         headerBackTitle: 'Back',
-        headerTitleAlign:'center',
+        headerTitleAlign: 'center',
         headerRight: () => (
           <MaterialIcons.Button
-            name="person-outline"
+            name="dehaze"
             color="black"
             size={25}
             backgroundColor="transparent"
@@ -123,8 +123,8 @@ const StackNavigator_RetManager = ({navigation}) => {
         headerBackTitle: 'Back',
         headerRight: () => (
           <MaterialIcons.Button
-            name="person-outline"
-            color="white"
+            name="dehaze"
+            color="black"
             size={25}
             backgroundColor="transparent"
             onPress={() => navigation.openDrawer()}
@@ -149,7 +149,7 @@ const StackNavigator_Emp_PayDept = ({navigation}) => {
         headerBackTitle: 'Back',
         headerRight: () => (
           <MaterialIcons.Button
-            name="person-outline"
+            name="dehaze"
             color="black"
             size={25}
             backgroundColor="transparent"
