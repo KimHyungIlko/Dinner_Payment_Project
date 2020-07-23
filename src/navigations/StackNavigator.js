@@ -42,14 +42,14 @@ const StackNavigator_Home = ({navigation}) => {
       screenOptions={{
         title: '홈',
         headerStyle: {
-          backgroundColor: '#9AC4F8',
+          backgroundColor: 'white',
         },
-        headerTintColor: 'white',
+        headerTintColor: 'black',
         headerBackTitle: 'Back',
         headerRight: () => (
           <MaterialIcons.Button
             name="person-outline"
-            color="white"
+            color="black"
             size={25}
             backgroundColor="transparent"
             onPress={() => navigation.openDrawer()}
@@ -68,15 +68,15 @@ const StackNavigator_Emp = ({navigation}) => {
       initialRouteName={routes.Emp}
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#9AC4F8',
+          backgroundColor: 'white',
         },
-        headerTintColor: 'white',
+        headerTintColor: 'black',
         headerBackTitle: 'Back',
         headerTitleAlign:'center',
         headerRight: () => (
           <MaterialIcons.Button
             name="person-outline"
-            color="white"
+            color="black"
             size={25}
             backgroundColor="transparent"
             onPress={() => navigation.openDrawer()}
@@ -143,14 +143,14 @@ const StackNavigator_Emp_PayDept = ({navigation}) => {
       initialRouteName={routes.Emp_PayDept}
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#9AC4F8',
+          backgroundColor: 'white',
         },
-        headerTintColor: 'white',
+        headerTintColor: 'black',
         headerBackTitle: 'Back',
         headerRight: () => (
           <MaterialIcons.Button
             name="person-outline"
-            color="white"
+            color="black"
             size={25}
             backgroundColor="transparent"
             onPress={() => navigation.openDrawer()}
