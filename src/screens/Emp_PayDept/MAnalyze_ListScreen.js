@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     justifyContent: 'center',
-    //paddingTop: 10,
+    backgroundColor: 'white',
   },
   head: {
     textAlign: 'left',
