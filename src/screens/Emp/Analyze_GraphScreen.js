@@ -9,32 +9,41 @@ import {
   VictoryBrushContainer,
 } from 'victory-native';
 import {ScrollView} from 'react-native-gesture-handler';
-
-const data = [
-  {date: new Date(1982, 1, 8), price: 1250},
-  {date: new Date(1987, 2, 7), price: 2570},
-  {date: new Date(1993, 3, 1), price: 3450},
-  {date: new Date(1997, 3, 5), price: 5150},
-  {date: new Date(2001, 3, 7), price: 1320},
-  {date: new Date(2005, 6, 1), price: 3050},
-  {date: new Date(2011, 7, 1), price: 2700},
-  {date: new Date(2015, 5, 1), price: 4700},
-];
+import axios from 'react-native-axios';
 
 class Analyze_GraphScreen extends Component {
-  constructor() {
-    super();
-    this.state = {};
+  constructor (props) {
+    super (props);
+    this.state = {
+      total: [],
+    };
   }
 
-  handleZoom(domain) {
-    this.setState({selectedDomain: domain});
+  handleZoom (domain) {
+    this.setState ({selectedDomain: domain});
   }
 
-  handleBrush(domain) {
-    this.setState({zoomDomain: domain});
+  handleBrush (domain) {
+    this.setState ({zoomDomain: domain});
   }
-  render() {
+
+  async componentDidMount () {
+    let datas = await axios.get ('http://54.180.86.174/employees/2017/costs');
+    //console.log('길혜영 정보', datas.data);
+    let row_list = [];
+    let total_list = [];
+    for (let i = 0; i < datas.data.length; i++) {
+      let date = datas.data[i].req_date.split ('-');
+      row_list.push (date[2], datas.data[i].req_cost * 0.0001);
+      total_list.push (row_list);
+      row_list = [];
+    }
+    this.setState ({total: total_list});
+    console.log ('total: ', this.state.total);
+  }
+
+  render () {
+    const state = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.head}>요금 사용 현황</Text>
@@ -43,69 +52,90 @@ class Analyze_GraphScreen extends Component {
             <VictoryChart
               width={550}
               height={300}
+              padding={{top: 20, left: 60, right: 50, bottom: 30}}
               scale={{x: 'time'}}
               containerComponent={
                 <VictoryZoomContainer
                   responsive={false}
                   zoomDimension="x"
                   zoomDomain={this.state.zoomDomain}
-                  onZoomDomainChange={this.handleZoom.bind(this)}
+                  onZoomDomainChange={this.handleZoom.bind (this)}
                 />
-              }>
+              }
+            >
               <VictoryLine
                 style={{
                   data: {stroke: 'tomato'},
                 }}
-                data={data}
-                x="date"
-                y="price"
+                data={state.total}
+                x={0}
+                y={1}
+              />
+              <VictoryAxis
+                label="이번 달 사용0 일자"
+                style={{
+                  axisLabel: {padding: 30},
+                }}
+              />
+              <VictoryAxis
+                dependentAxis
+                label="사용금액 (만원)"
+                style={{
+                  axisLabel: {padding: 40},
+                }}
               />
             </VictoryChart>
           </ScrollView>
         </View>
-
-        <VictoryChart
-          width={300}
-          height={90}
-          scale={{x: 'time'}}
-          padding={{top: 0, left: 50, right: 50, bottom: 30}}
-          containerComponent={
-            <VictoryBrushContainer
-              responsive={false}
-              brushDimension="x"
-              brushDomain={this.state.selectedDomain}
-              onBrushDomainChange={this.handleBrush.bind(this)}
+        <View style={styles.bot_graph}>
+          <VictoryChart
+            width={300}
+            height={90}
+            scale={{x: 'time'}}
+            padding={{top: 0, left: 50, right: 0, bottom: 30}}
+            containerComponent={
+              <VictoryBrushContainer
+                responsive={false}
+                brushDimension="x"
+                brushDomain={this.state.selectedDomain}
+                onBrushDomainChange={this.handleBrush.bind (this)}
+              />
+            }
+          >
+            <VictoryAxis />
+            <VictoryLine
+              style={{
+                data: {stroke: 'tomato'},
+              }}
+              data={state.total}
+              x={0}
+              y={1}
             />
-          }>
-          <VictoryAxis
-            tickValues={[new Date(1985, 1, 1), new Date(2015, 1, 1)]}
-            tickFormat={(x) => new Date(x).getFullYear()}
-          />
-          <VictoryLine
-            style={{
-              data: {stroke: 'tomato'},
-            }}
-            data={data}
-            x="date"
-            y="price"
-          />
-        </VictoryChart>
+          </VictoryChart>
+        </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   container: {
     flex: 1,
+    alignContent: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5fcff',
+    backgroundColor: 'white',
   },
   head: {
-    justifyContent: 'center',
+    textAlign: 'left',
+    textAlignVertical: 'bottom',
+    flex: 1,
+    fontSize: 30,
     fontWeight: 'bold',
-    fontSize: 20,
+    color: '#7D756B',
+  },
+  bot_graph: {
+    justifyContent: 'center',
+    alignContent: 'center',
   },
 });
 
