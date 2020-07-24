@@ -12,41 +12,42 @@ import {ScrollView} from 'react-native-gesture-handler';
 import axios from 'react-native-axios';
 
 class Analyze_GraphScreen extends Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {
       total: [],
+      name: [],
     };
   }
 
-  handleZoom (domain) {
-    this.setState ({selectedDomain: domain});
+  handleZoom(domain) {
+    this.setState({selectedDomain: domain});
   }
 
-  handleBrush (domain) {
-    this.setState ({zoomDomain: domain});
+  handleBrush(domain) {
+    this.setState({zoomDomain: domain});
   }
 
-  async componentDidMount () {
-    let datas = await axios.get ('http://54.180.86.174/employees/2017/costs');
+  async componentDidMount() {
+    let datas = await axios.get('http://54.180.86.174/employees/2017/costs');
     //console.log('길혜영 정보', datas.data);
     let row_list = [];
     let total_list = [];
     for (let i = 0; i < datas.data.length; i++) {
-      let date = datas.data[i].req_date.split ('-');
-      row_list.push (date[2], datas.data[i].req_cost * 0.0001);
-      total_list.push (row_list);
+      let date = datas.data[i].req_date.split('-');
+      row_list.push(date[2], datas.data[i].req_cost * 0.0001);
+      total_list.push(row_list);
       row_list = [];
     }
-    this.setState ({total: total_list});
-    console.log ('total: ', this.state.total);
+    this.setState({total: total_list, name: datas.data[0].emp_name});
+    console.log('total: ', this.state.total);
   }
 
-  render () {
+  render() {
     const state = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.head}>요금 사용 현황</Text>
+        <Text style={styles.head}>{state.name} 요금 사용 현황</Text>
         <View style={{height: 350}}>
           <ScrollView horizontal={true}>
             <VictoryChart
@@ -60,10 +61,9 @@ class Analyze_GraphScreen extends Component {
                   responsive={false}
                   zoomDimension="x"
                   zoomDomain={this.state.zoomDomain}
-                  onZoomDomainChange={this.handleZoom.bind (this)}
+                  onZoomDomainChange={this.handleZoom.bind(this)}
                 />
-              }
-            >
+              }>
               <VictoryLine
                 style={{
                   data: {stroke: 'tomato'},
@@ -101,10 +101,9 @@ class Analyze_GraphScreen extends Component {
                 responsive={false}
                 brushDimension="x"
                 brushDomain={this.state.selectedDomain}
-                onBrushDomainChange={this.handleBrush.bind (this)}
+                onBrushDomainChange={this.handleBrush.bind(this)}
               />
-            }
-          >
+            }>
             <VictoryAxis />
             <VictoryLine
               style={{
@@ -116,13 +115,12 @@ class Analyze_GraphScreen extends Component {
             />
           </VictoryChart>
         </View>
-
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: 'center',
