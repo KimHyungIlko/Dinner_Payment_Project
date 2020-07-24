@@ -23,24 +23,28 @@ class MAnalyze_GraphScreen extends Component {
   }
 
   async componentDidMount () {
-    let datas = await axios.get ('http://54.180.86.174/departments/costs');
+    let datas = await axios.get (
+      'http://54.180.86.174/departments/costs?total=true'
+    );
     let total_list = [];
     let total_list1 = [];
     let dept_list = [];
     let costs_list = [];
     for (let i = 0; i < datas.data.length; i++) {
-      if (datas.data[i].ret_name == 'ALL Restaurants') {
-        costs_list.push (datas.data[i].dept_name, datas.data[i].costs / 10000);
-        total_list.push (datas.data[i].dept_name, 80);
-        total_list1.push (total_list);
-        dept_list.push (costs_list);
-        costs_list = [];
-        total_list = [];
-      }
+      dept_list.push (datas.data[i].dept_name, datas.data[i].costs * 0.0001);
+      total_list.push (
+        datas.data[i].dept_name,
+        datas.data[i].assignCosts * 0.0001
+      );
+      total_list1.push (total_list);
+      costs_list.push (dept_list);
+      dept_list = [];
+      total_list = [];
     }
 
-    this.setState ({tabledata: dept_list, total: total_list1});
-    console.log (total_list1);
+    this.setState ({tabledata: costs_list, total: total_list1});
+    console.log ('tabledata ', costs_list);
+    console.log ('total ', total_list1);
   }
 
   render () {
@@ -49,12 +53,14 @@ class MAnalyze_GraphScreen extends Component {
       <View style={styles.container}>
         <Text style={styles.head}>부서별 야식대 사용금액</Text>
         <ScrollView horizontal={true}>
-          <VictoryChart width={450} height={300} theme={VictoryTheme.material}>
+          <VictoryChart
+            width={450}
+            height={300}
+            theme={VictoryTheme.material}
+            style={{width: 'fit-contents', height: 'fit-contents'}}
+          >
             <VictoryBar
-              style={{
-                data: {fill: 'red'},
-                justifyContent: 'center',
-              }}
+              style={{data: {fill: '#AFAAAB'}}}
               //alignment="start"
               data={state.total}
               x={0}

@@ -3,38 +3,24 @@ import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {Table, TableWrapper, Row, Col} from 'react-native-table-component';
 
 class Analyze_ListScreen extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super (props);
     this.state = {
-      tableHead: [
-        '',
-        '이치류',
-        '오레노라멘',
-        '쿠이신보',
-        '카밀로라자네리아',
-        '오스테리아샘킴',
-        '총 합계',
-      ],
-      tableTitle: [
-        '경영지원부',
-        '그룹사사업본부',
-        '은행사업본부',
-        '디지털사업본부',
-        '총 합계',
-      ],
-      widthArr: [120, 120, 120, 120, 120, 120, 120],
+      tableHead: ['음식점', '인원수', '사용금액', '날짜', '시간'],
+      tableTitle: ['경영지원부', '그룹사사업본부', '은행사업본부', '디지털사업본부', '총 합계'],
+      widthArr: [120, 120, 120, 120, 120],
     };
   }
 
-  render() {
+  render () {
     const state = this.state;
     const tableData = [];
     for (let i = 0; i < 5; i += 1) {
       const rowData = [];
       for (let j = 0; j < 6; j += 1) {
-        rowData.push(`${i}${j}`);
+        rowData.push (`${i}${j}`);
       }
-      tableData.push(rowData);
+      tableData.push (rowData);
     }
 
     return (
@@ -52,7 +38,8 @@ class Analyze_ListScreen extends Component {
             <ScrollView style={styles.dataWrapper}>
               <TableWrapper
                 borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}
-                style={styles.wrapper}>
+                style={styles.wrapper}
+              >
                 <Col
                   data={state.tableTitle}
                   style={styles.title}
@@ -61,7 +48,7 @@ class Analyze_ListScreen extends Component {
                   textStyle={styles.text}
                 />
                 <Table>
-                  {tableData.map((rowData, index) => (
+                  {tableData.map ((rowData, index) => (
                     <Row
                       key={index}
                       data={rowData}
@@ -83,7 +70,7 @@ class Analyze_ListScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   container: {
     flex: 1,
     justifyContent: 'center',

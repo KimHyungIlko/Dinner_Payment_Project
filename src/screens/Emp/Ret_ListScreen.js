@@ -74,7 +74,7 @@ const styles = StyleSheet.create ({
     height: 200,
     width: width * 0.9,
     elevation: 24,
-    backgroundColor: 'yellow',
+    //backgroundColor: 'white',
     borderRadius: 10,
   },
   img_back: {flex: 1, justifyContent: 'flex-end'},

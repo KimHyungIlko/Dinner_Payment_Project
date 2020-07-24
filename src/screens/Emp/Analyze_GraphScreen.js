@@ -50,9 +50,10 @@ class Analyze_GraphScreen extends Component {
         <View style={{height: 350}}>
           <ScrollView horizontal={true}>
             <VictoryChart
-              width={550}
-              height={300}
-              padding={{top: 20, left: 60, right: 50, bottom: 30}}
+              //width={450}
+              // height={300}
+              style={{width: 'fit-contents', height: 'fit-contents'}}
+              padding={{top: 0, left: 60, right: 50, bottom: 50}}
               scale={{x: 'time'}}
               containerComponent={
                 <VictoryZoomContainer
@@ -72,7 +73,7 @@ class Analyze_GraphScreen extends Component {
                 y={1}
               />
               <VictoryAxis
-                label="이번 달 사용0 일자"
+                label="이번 달 사용 일자"
                 style={{
                   axisLabel: {padding: 30},
                 }}
@@ -87,12 +88,14 @@ class Analyze_GraphScreen extends Component {
             </VictoryChart>
           </ScrollView>
         </View>
-        <View style={styles.bot_graph}>
+
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <VictoryChart
-            width={300}
+            width={250}
             height={90}
+            style={styles.bottomGraph}
             scale={{x: 'time'}}
-            padding={{top: 0, left: 50, right: 0, bottom: 30}}
+            padding={{top: 0, left: 0, right: 0, bottom: 30}}
             containerComponent={
               <VictoryBrushContainer
                 responsive={false}
@@ -113,6 +116,7 @@ class Analyze_GraphScreen extends Component {
             />
           </VictoryChart>
         </View>
+
       </View>
     );
   }
@@ -122,21 +126,19 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
     alignContent: 'center',
-    justifyContent: 'center',
     backgroundColor: 'white',
+    paddingTop: 30,
   },
   head: {
     textAlign: 'left',
     textAlignVertical: 'bottom',
-    flex: 1,
+    paddingBottom: 20,
+    paddingLeft: '4%',
     fontSize: 30,
     fontWeight: 'bold',
     color: '#7D756B',
   },
-  bot_graph: {
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
+  bottomGraph: {},
 });
 
 export default Analyze_GraphScreen;
