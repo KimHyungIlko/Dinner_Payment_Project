@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, useState} from 'react';
 import {
   TextInput,
   TouchableOpacity,
@@ -7,10 +7,19 @@ import {
   View,
   Dimensions,
   Animated,
+  Image,
   ImageBackground,
 } from 'react-native';
 import SlidingUpPanel from 'rn-sliding-up-panel';
-
+import routes from '../../../routes';
+import {
+  Card,
+  Button,
+  Dialog,
+  Portal,
+  Paragraph,
+  Provider,
+} from 'react-native-paper';
 const {height, width} = Dimensions.get('window');
 const Dialog_Confirm = ({changeVisible, navigation}) => {
   const [visible, setVisible] = useState(true);
@@ -85,13 +94,15 @@ class Req_PayScreen extends React.Component {
       });
     }
   };
+
   render() {
     const {navigation} = this.props;
+    const {visible} = this.state;
 
     const {top, bottom} = this.props.draggableRange;
     const textTranslateY = this._draggedValue.interpolate({
       inputRange: [bottom, top * 0.7],
-      outputRange: [0, 5],
+      outputRange: [0, 3],
       extrapolate: 'clamp',
     });
 
@@ -106,7 +117,7 @@ class Req_PayScreen extends React.Component {
       outputRange: [1, 0.7],
       extrapolate: 'clamp',
     });
-    // console.log('pos: ', this.props);
+
     console.log('입력: ', this.state.people);
     return (
       <View style={styles.container}>
@@ -121,7 +132,7 @@ class Req_PayScreen extends React.Component {
         </View>
 
         <SlidingUpPanel
-          ref={(c) => (this._panel = c)}
+          //ref={(c) => (this._panel = c)}
           draggableRange={this.props.draggableRange}
           animatedValue={this._draggedValue}
           height={height * 0.7}
@@ -156,6 +167,7 @@ class Req_PayScreen extends React.Component {
                   style={styles.inputline}
                   placeholder="인원을 입력하세요"
                   onChangeText={(people) => this.setState({people})}
+                  value={this.state.people}
                 />
                 <Text style={styles.staticText}>명</Text>
               </View>
@@ -163,7 +175,9 @@ class Req_PayScreen extends React.Component {
                 <TextInput
                   style={styles.inputline}
                   placeholder="금액을 입력하세요"
+                  autoCapitalize="none"
                   onChangeText={(price) => this.setState({price})}
+                  //
                 />
                 <Text style={styles.staticText}>원</Text>
               </View>
@@ -239,7 +253,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     borderBottomColor: 'gray',
     borderBottomWidth: 0.5,
-    alignContent: 'center',
   },
   staticText: {
     fontSize: 33,
