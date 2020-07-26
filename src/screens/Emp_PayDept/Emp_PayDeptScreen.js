@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Button,
-  Text,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import {View, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
 import routes from '../../../routes';
 class Emp_PayDeptScreen extends Component {
   render() {
@@ -20,7 +13,6 @@ class Emp_PayDeptScreen extends Component {
             <Text style={styles.buttonText}>결제 정보</Text>
           </TouchableOpacity>
         </View>
-
         <View style={styles.pointView}>
           <TouchableOpacity
             style={styles.button}
@@ -36,7 +28,6 @@ class Emp_PayDeptScreen extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -60,21 +51,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECB03E',
     width: 200,
   },
-  logo: {
-    width: 80,
-    height: 25,
-
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
   },
   buttonText: {
     fontFamily: 'Jua-Regular',
     fontSize: 22,
-    fontWeight: 'bold',
     color: 'white',
     alignSelf: 'center',
   },
+  logo: {
+    width: 80,
+    height: 25,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+  },
 });
-
 export default Emp_PayDeptScreen;
