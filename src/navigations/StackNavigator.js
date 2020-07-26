@@ -92,7 +92,7 @@ const StackNavigator_Emp = ({navigation}) => {
       <Stack.Screen
         name={routes.Ret_List}
         component={Ret_ListScreen}
-        options={{title: '야식대 리스트'}}
+        options={{title: '식당 리스트'}}
       />
       <Stack.Screen
         name={routes.Req_Pay}

@@ -1,49 +1,21 @@
-import React, {Component, useState} from 'react';
+import React from 'react';
 import {
-  TextInput,
-  ScrollView,
-  View,
-  Image,
   StyleSheet,
+  TextInput,
   Text,
+  View,
+  Dimensions,
+  Animated,
+  ScrollView,
+  Image,
+  ImageBackground,
 } from 'react-native';
-import {
-  Card,
-  Button,
-  Dialog,
-  Portal,
-  Paragraph,
-  Provider,
-} from 'react-native-paper';
-import routes from '../../../routes';
-import axios from 'react-native-axios';
-const Dialog_Confirm = ({changeVisible, navigation}) => {
-  const [visible, setVisible] = useState(true);
+import {Button, Dialog, Portal, Paragraph, Provider} from 'react-native-paper';
+import SlidingUpPanel from 'rn-sliding-up-panel';
 
-  const hideDialog = (change) => {
-    setVisible(false);
-    changeVisible(navigation, change);
-  };
+const {height, width} = Dimensions.get('window');
 
-  return (
-    <Provider style={{width: '100%', height: '100%'}}>
-      <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
-          {/* <Dialog.Title>Alert</Dialog.Title> */}
-          <Dialog.Content>
-            <Paragraph>결제 요청을 하시겠습니까?</Paragraph>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={() => hideDialog(true)}>확인</Button>
-            <Button onPress={() => hideDialog(false)}>취소</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
-    </Provider>
-  );
-};
-
-class Req_PayScreen extends Component {
+class Req_PayScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,128 +28,93 @@ class Req_PayScreen extends Component {
     };
   }
 
-  // 확인 버튼 클릭 시 -> 다이얼로그가 보이도록
-  handleConfirmBtn = () => {
-    this.setState({
-      ...this.state,
-      visible: true,
-    });
+  static defaultProps = {
+    draggableRange: {top: height * 0.7, bottom: 70},
   };
 
-  // 다이얼로그 컴포넌트에서 최종 확인을 누르면
-  changeVisible = (navigation, change) => {
-    this.setState({
-      ...this.state,
-      visible: false,
-    });
-
-    // navigate
-    if (change == true) {
-      // data 전달할 때, 각각 전달하기 보단 obj 형태로
-      navigation.navigate(routes.Confirm_ReqPay, {
-        image: this.state.image,
-        name: this.state.name,
-        price: this.state.price,
-        people: this.state.people,
-      });
-    }
-  };
+  _draggedValue = new Animated.Value(70);
 
   render() {
-    const {navigation} = this.props;
-    const {visible} = this.state;
+    const {top, bottom} = this.props.draggableRange;
 
-    console.log('req_pay');
-    console.log('visible: ', visible);
+    const textTranslateY = this._draggedValue.interpolate({
+      inputRange: [bottom, top * 0.7],
+      outputRange: [0, 5],
+      extrapolate: 'clamp',
+    });
 
+    const textTranslateX = this._draggedValue.interpolate({
+      inputRange: [bottom, top * 0.7],
+      outputRange: [0, -50],
+      extrapolate: 'clamp',
+    });
+
+    const textScale = this._draggedValue.interpolate({
+      inputRange: [bottom, top * 0.7],
+      outputRange: [1, 0.7],
+      extrapolate: 'clamp',
+    });
+    console.log('높이값: ', height);
     return (
-      <ScrollView style={{backgroundColor: 'white'}}>
-        <View style={styles.container}>
-          <Text style={styles.title}>{this.state.name}</Text>
-          <Image style={styles.food} source={{uri: this.state.image}} />
-
-          <View style={styles.pos}>
-            <TextInput
-              style={styles.textline}
-              placeholder="인원을 입력하세요"
-              onChangeText={(people) => this.setState({people})}
-            />
-            <Text style={styles.staticText}>명</Text>
-          </View>
-          <View style={styles.pos}>
-            <TextInput
-              style={styles.textline}
-              placeholder="금액을 입력하세요"
-              onChangeText={(price) => this.setState({price})}
-            />
-            <Text style={styles.staticText}>원</Text>
-          </View>
-          <Card style={styles.cardSpot}>
-            <Card.Actions>
-              <Button onPress={() => this.handleConfirmBtn()}>확인</Button>
-            </Card.Actions>
-          </Card>
+      <View style={styles.container}>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignContent: 'center',
+            backgroundColor: 'red',
+          }}>
+          <ImageBackground
+            style={{justifyContent: 'center', height: 300, width: width}}
+            source={{uri: this.state.image}}></ImageBackground>
         </View>
 
-        {visible && (
-          <Dialog_Confirm
-            changeVisible={this.changeVisible}
-            navigation={navigation}
-          />
-        )}
-      </ScrollView>
+        <SlidingUpPanel
+          ref={(c) => (this._panel = c)}
+          draggableRange={this.props.draggableRange}
+          animatedValue={this._draggedValue}
+          height={height * 0.7}
+          friction={0.7}
+          backdropOpacity={0.3}>
+          <View style={styles.panel}>
+            <View style={styles.panelHeader}>
+              <Animated.View
+                style={{
+                  transform: [
+                    {translateY: textTranslateY},
+                    {translateX: textTranslateX},
+                    {scale: textScale},
+                  ],
+                }}>
+                <Text style={styles.textHeader}>결제하기</Text>
+              </Animated.View>
+            </View>
+            <View style={styles.container}>
+              <Text>Bottom sheet content</Text>
+            </View>
+          </View>
+        </SlidingUpPanel>
+      </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: 'orange',
-  },
-  food: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9AA9FF',
-    width: 230,
-    height: 230,
-    marginTop: 40,
-    borderRadius: 120,
-    borderWidth: 10,
+    backgroundColor: '#f8f9fa',
   },
-  pos: {
-    height: 40,
-    marginTop: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: '#eee',
-    fontSize: 17,
+  panel: {
+    flex: 1,
+    backgroundColor: 'white',
+    position: 'relative',
   },
-  textline: {
-    height: 40,
-    marginTop: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: '#eee',
-    borderBottomWidth: 0.5,
-    fontSize: 17,
+  panelHeader: {
+    height: 80,
+    backgroundColor: '#ECB03E',
+    padding: 15,
   },
-  staticText: {
-    flexDirection: 'row',
-    marginTop: 45,
-    marginLeft: 10,
-    fontWeight: 'bold',
-    fontSize: 25,
-  },
-  cardSpot: {
-    marginTop: 50,
+  textHeader: {
+    fontSize: 28,
+    color: '#FFF',
   },
 });
-
 export default Req_PayScreen;

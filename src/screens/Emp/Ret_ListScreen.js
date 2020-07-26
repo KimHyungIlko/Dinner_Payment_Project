@@ -15,7 +15,7 @@ import routes from '../../../routes';
 import axios from 'react-native-axios';
 // 식당 리스트
 const RetCard = ({retInfo, navigation}) => {
-  console.log('retcard: ', retInfo.ret_img);
+  //console.log('retcard: ', retInfo.ret_img);
   return (
     <TouchableOpacity
       style={styles.button}
@@ -51,7 +51,7 @@ class Ret_ListScreen extends Component {
     const {datas} = this.state;
     const {navigation} = this.props;
     return (
-      <View style={{backgroundColor: 'white'}}>
+      <View style={{backgroundColor: '#F5D69A'}}>
         <ScrollView>
           {datas.map((data) => {
             return (
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     //backgroundColor: 'white',
     borderRadius: 10,
   },
-  img_back: {flex: 1, justifyContent: 'flex-end'},
+  img_back: {flex: 1, elevation: 24, justifyContent: 'flex-end'},
   text: {
     marginLeft: 10,
     fontSize: 20,
