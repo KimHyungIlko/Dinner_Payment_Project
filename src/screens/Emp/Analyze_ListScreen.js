@@ -58,6 +58,8 @@ const PayCard = ({payInfo, navigation}) => {
             style={{
               flexDirection: 'column',
               marginLeft: 10,
+              position: 'absolute',
+              right: 20,
             }}>
             <View style={styles.rows}>
               <Text style={styles.text}>{payInfo.req_cost}</Text>
@@ -147,7 +149,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingTop: 5,
     color: '#686458',
-    textAlign: 'right',
   },
   timeTitle: {
     height: 30,
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Jua-Regular',
     height: 30,
     fontSize: 20,
-    color: 'red',
+    color: '#C83E3A',
     textAlign: 'right',
   },
   rows: {
