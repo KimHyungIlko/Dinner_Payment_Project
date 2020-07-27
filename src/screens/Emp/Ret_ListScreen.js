@@ -42,7 +42,10 @@ const RetCard = ({retInfo, navigation}) => {
       name: retInfo.name,
       pos: pos,
       info: info,
+      id: retInfo.id,
     });
+
+    console.log('id : ' + retInfo.id);
   };
   return (
     <TouchableOpacity

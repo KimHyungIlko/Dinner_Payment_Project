@@ -21,12 +21,20 @@ import {
   Provider,
 } from 'react-native-paper';
 const {height, width} = Dimensions.get('window');
-const Dialog_Confirm = ({changeVisible, navigation}) => {
+const Dialog_Confirm = ({
+  changeVisible,
+  navigation,
+  name,
+  image,
+  price,
+  people,
+  id,
+}) => {
   const [visible, setVisible] = useState(true);
 
   const hideDialog = (change) => {
     setVisible(false);
-    changeVisible(navigation, change);
+    changeVisible(navigation, change, id, name, image, price, people);
   };
 
   return (
@@ -51,6 +59,7 @@ class Req_PayScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: this.props.route.params.id, // Ret_id
       name: this.props.route.params.name,
       image: this.props.route.params.image,
       people: 1,
@@ -77,7 +86,7 @@ class Req_PayScreen extends React.Component {
   };
 
   // 다이얼로그 컴포넌트에서 최종 확인을 누르면
-  changeVisible = (navigation, change) => {
+  changeVisible = (navigation, change, id, name, image, people, price) => {
     this.setState({
       ...this.state,
       visible: false,
@@ -85,12 +94,25 @@ class Req_PayScreen extends React.Component {
 
     // navigate
     if (change == true) {
+      const reqData = {
+        emp_id: 2017,
+        emp_name: '길혜영',
+        dept_id: 4,
+        dept_name: '디지털사업본부',
+        ret_id: Number(id),
+        ret_name: name,
+        ret_img: image,
+        req_cost: Number(price),
+        emp_num: Number(people),
+      };
+
       // data 전달할 때, 각각 전달하기 보단 obj 형태로
       navigation.navigate(routes.Confirm_ReqPay, {
         image: this.state.image,
         name: this.state.name,
         price: this.state.price,
         people: this.state.people,
+        reqData: reqData,
       });
     }
   };
@@ -160,7 +182,6 @@ class Req_PayScreen extends React.Component {
                 <Text style={styles.text}>위치 - </Text>
                 <Text style={styles.info}>{this.state.pos}</Text>
               </View>
-
               <View style={styles.input}>
                 <TextInput
                   style={styles.inputline}
@@ -189,6 +210,11 @@ class Req_PayScreen extends React.Component {
               <Dialog_Confirm
                 changeVisible={this.changeVisible}
                 navigation={navigation}
+                id={this.state.id}
+                name={this.state.name}
+                image={this.state.image}
+                price={this.state.price}
+                people={this.state.people}
               />
             )}
           </View>
