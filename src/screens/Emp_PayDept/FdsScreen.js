@@ -13,11 +13,12 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const {height, width} = Dimensions.get('window');
 
-class Graphscreen extends Component {
+class FDSList extends Component {
   render() {
     const dept_datas = this.props.dept_datas;
     const emp_datas = this.props.emp_datas;
-    // console.log('emp: ', emp_datas);
+    const navigation = this.props.navigation;
+    //console.log('asdffdassafdsafdafsdsafdfsdaasd:', navigation);
     return (
       <View style={{flex: 1}}>
         <View>
@@ -62,18 +63,45 @@ class Graphscreen extends Component {
                   <View key={index}>
                     <TouchableOpacity
                       style={styles.button}
-                      onPress={() => navigation.navigate(routes.Analyze_Home)}>
-                      <Text>{data.dept_name}</Text>
-                      <Text>부서 인원: {data.totalEmpNum}</Text>
-                      <Text>할당 금액 :{data.assignCosts}</Text>
-                      <Text>사용 금액: {data.costs}</Text>
-                      <Text>차액: {data.costs - data.assignCosts}</Text>
+                      onPress={() => navigation.navigate(routes.Dept_Fds)}>
+                      <View
+                        style={{
+                          backgroundColor: '#81776C',
+                          borderTopRightRadius: 8,
+                          borderTopLeftRadius: 8,
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 15,
+                            fontWeight: 'bold',
+                            paddingLeft: width * 0.02,
+                            borderBottomColor: '#81776C',
+                            borderBottomWidth: 1,
+                            color: 'white',
+                          }}>
+                          {data.dept_name}
+                        </Text>
+                      </View>
+
+                      <Text style={styles.info}>
+                        부서 인원: {data.totalEmpNum} 명
+                      </Text>
+                      <Text style={styles.info}>
+                        할당 금액 :{data.assignCosts} 원
+                      </Text>
+                      <Text style={styles.info}>
+                        사용 금액: {data.costs} 원
+                      </Text>
+                      <Text style={styles.info}>
+                        차액: {data.costs - data.assignCosts} 원
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 );
               })}
             </ScrollView>
           )}
+          {/* ////////////////////////////// */}
         </View>
         <View style={{flex: 1}}>
           <Text
@@ -118,15 +146,53 @@ class Graphscreen extends Component {
                     <View key={index} style={{flexDirection: 'column'}}>
                       <TouchableOpacity
                         style={styles.button}
-                        onPress={() =>
-                          navigation.navigate(routes.Analyze_Home)
-                        }>
-                        <Text>{data.emp_name}</Text>
-                        <Text>{data.dept_name}</Text>
-                        <Text>{data.ret_name}</Text>
-                        <Text>{data.emp_num}</Text>
-                        <Text>{data.req_date}</Text>
-                        <Text>{data.cost}</Text>
+                        onPress={() => navigation.navigate(routes.Emp_Fds)}>
+                        <View
+                          style={{
+                            backgroundColor: '#81776C',
+                            borderTopRightRadius: 8,
+                            borderTopLeftRadius: 8,
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                          }}>
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              fontWeight: 'bold',
+                              paddingLeft: width * 0.02,
+                              color: 'white',
+                            }}>
+                            {data.emp_name}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              color: 'white',
+                              paddingRight: width * 0.02,
+                            }}>
+                            {data.dept_name}
+                          </Text>
+                        </View>
+                        <View style={{flexDirection: 'row', flex: 1}}>
+                          <View style={{flex: 1}}>
+                            <Text style={styles.emp_info}>
+                              가게명: {data.ret_name}
+                            </Text>
+                            <Text style={styles.emp_info}>
+                              인원: {data.emp_num}
+                            </Text>
+                            <Text style={styles.emp_info}>
+                              사용 금액: {data.cost}
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              paddingRight: width * 0.01,
+                              justifyContent: 'flex-end',
+                            }}>
+                            <Text>{data.req_date}</Text>
+                          </View>
+                        </View>
                       </TouchableOpacity>
                     </View>
                   );
@@ -168,14 +234,17 @@ class FdsScreen extends Component {
     }
   }
   render() {
+    const {navigation} = this.props;
     const {dept, emp} = this.state;
+
+    console.log('emsadsadasp: ', navigation);
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <View style={styles.center}>
           <Text style={styles.title}>이상 감지 FDS</Text>
         </View>
         {/* <ScrollView> */}
-        <Graphscreen dept_datas={dept} emp_datas={emp} />
+        <FDSList dept_datas={dept} emp_datas={emp} navigation={navigation} />
         {/* </ScrollView> */}
       </SafeAreaView>
     );
@@ -199,7 +268,7 @@ const styles = StyleSheet.create({
   button: {
     marginLeft: width * 0.05,
     width: width * 0.9,
-    marginTop: 3,
+    marginTop: 10,
     marginBottom: 3,
     height: height * 0.14,
     borderWidth: 1,
@@ -208,6 +277,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     elevation: 10,
   },
+  info: {
+    fontSize: 13,
+    paddingLeft: width * 0.02,
+    // textAlign: 'right',
+  },
+  emp_info: {
+    paddingTop: height * 0.005,
+    fontSize: 15,
+    paddingLeft: width * 0.02,
+  },
 });
 
-export default FdsScreen;
+export {FdsScreen, FDSList};

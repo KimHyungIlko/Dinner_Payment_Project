@@ -1,11 +1,16 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/Home/HomeScreen';
-import EmpScreen from '../screens/Emp/EmpScreen';
+
+import {FdsScreen, FDSList} from '../screens/Emp_PayDept/FdsScreen';
 import Emp_PayDeptScreen from '../screens/Emp_PayDept/Emp_PayDeptScreen';
+import Dept_FdsScreen from '../screens/Emp_PayDept/Dept_FdsScreen';
+import Emp_FdsScreen from '../screens/Emp_PayDept/Emp_FdsScreen';
 import Info_PayScreen from '../screens/Emp_PayDept/Info_PayScreen';
-import FdsScreen from '../screens/Emp_PayDept/FdsScreen';
+
 import routes from '../../routes';
+
+import EmpScreen from '../screens/Emp/EmpScreen';
 import Ret_ListScreen from '../screens/Emp/Ret_ListScreen';
 import Req_PayScreen from '../screens/Emp/Req_PayScreen';
 import Confirm_ReqPayScreen from '../screens/Emp/Confirm_ReqPayScreen';
@@ -175,6 +180,21 @@ const StackNavigator_Emp_PayDept = ({navigation}) => {
       <Stack.Screen
         name={routes.Fds}
         component={FdsScreen}
+        options={{title: '총무부'}}
+      />
+      <Stack.Screen
+        name={routes.Dept_Fds}
+        component={Dept_FdsScreen}
+        options={{title: '총무부'}}
+      />
+      <Stack.Screen
+        name={routes.Emp_Fds}
+        component={Emp_FdsScreen}
+        options={{title: '총무부'}}
+      />
+      <Stack.Screen
+        name={'FDSList'}
+        component={FDSList}
         options={{title: '총무부'}}
       />
       {/* 결제정보, 야식대 FDS route */}

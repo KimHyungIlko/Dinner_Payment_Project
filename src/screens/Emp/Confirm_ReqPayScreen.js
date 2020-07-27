@@ -99,12 +99,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
+    paddingTop: height * 0.01,
+    paddingLeft: width * 0.01,
     fontSize: 35,
     fontFamily: 'Jua-Regular',
     width: width,
-    height: 50,
+    height: height * 0.08,
   },
   staticTitle: {
+    paddingTop: height * 0.01,
+    paddingLeft: width * 0.01,
     fontSize: 25,
     fontFamily: 'Jua-Regular',
     width: width,
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: width,
-    height: 170,
+    height: height * 0.3,
   },
   textline: {
     flexDirection: 'row',

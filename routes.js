@@ -22,6 +22,8 @@ const routes = {
   Fds: 'Fds', // 야식대 FDS
   MAnalyze_Graph: 'MAnalyze_Graph', //총무 그래프 표출 스크린
   MAnalyze_List: 'MAnalyze_List', //총무 그래프 표출 스크린
+  Dept_Fds: 'Dept_Fds', //Fds 부서별 스크린
+  Emp_Fds: 'Emp_Fds',
 };
 
 export default routes;
