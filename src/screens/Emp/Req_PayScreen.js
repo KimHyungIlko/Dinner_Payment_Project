@@ -59,6 +59,7 @@ class Req_PayScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: this.props.route.params.id, // Ret_id
       name: this.props.route.params.name,
       image: this.props.route.params.image,
       people: 1,
@@ -67,7 +68,6 @@ class Req_PayScreen extends React.Component {
       index: 0,
       pos: this.props.route.params.pos,
       info: this.props.route.params.info,
-      id: this.props.route.params.id, // Ret_id
     };
   }
 
@@ -86,7 +86,7 @@ class Req_PayScreen extends React.Component {
   };
 
   // 다이얼로그 컴포넌트에서 최종 확인을 누르면
-  changeVisible = (navigation, change, name, image, people, price, id) => {
+  changeVisible = (navigation, change, id, name, image, people, price) => {
     this.setState({
       ...this.state,
       visible: false,
@@ -99,7 +99,7 @@ class Req_PayScreen extends React.Component {
         emp_name: '길혜영',
         dept_id: 4,
         dept_name: '디지털사업본부',
-        ret_id: Number(this.props.route.params.id),
+        ret_id: Number(id),
         ret_name: name,
         ret_img: image,
         req_cost: Number(price),
@@ -179,7 +179,14 @@ class Req_PayScreen extends React.Component {
                 onPress={() => this.handleConfirmBtn()}>
                 <Text style={styles.buttonText}>확인</Text>
               </TouchableOpacity>
-
+              <View style={styles.infobox}>
+                <Text style={styles.text}>소개 - </Text>
+                <Text style={styles.info}>{this.state.info}</Text>
+              </View>
+              <View style={styles.infobox}>
+                <Text style={styles.text}>위치 - </Text>
+                <Text style={styles.info}>{this.state.pos}</Text>
+              </View>
               <View style={styles.input}>
                 <TextInput
                   style={styles.inputline}
@@ -203,11 +210,11 @@ class Req_PayScreen extends React.Component {
               <Dialog_Confirm
                 changeVisible={this.changeVisible}
                 navigation={navigation}
+                id={this.state.id}
                 name={this.state.name}
                 image={this.state.image}
                 price={this.state.price}
                 people={this.state.people}
-                id={this.state.id}
               />
             )}
           </View>
