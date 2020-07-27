@@ -8,57 +8,123 @@ import {
   VictoryZoomContainer,
   VictoryBrushContainer,
   VictoryTheme,
+  VictoryPie,
 } from 'victory-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {set} from 'react-native-reanimated';
 import axios from 'react-native-axios';
-
+import {List, Divider} from 'react-native-paper';
+import {Picker} from '@react-native-community/picker';
+// 해당 부서에서 결제한 직원들의 리스트 목록 컴포넌트
+const EmployeesList = ({selectedDept, empCostList}) => {
+  console.log('EmployeesList: ', empCostList);
+  return (
+    <List.Section>
+      <List.Subheader>{selectedDept}</List.Subheader>
+      {empCostList.map((item) => {
+        return (
+          <List.Item
+            key={item.id}
+            title={item.emp_name + ' (외 ' + (item.emp_num - 1) + '명)'}
+            description={item.dept_name}
+            // left={(props) => <List.Icon {...props} icon="folder" />}
+            right={() => (
+              <View style={{justifyContent: 'center'}}>
+                <Text style={styles.text}>
+                  {item.req_cost}원 ({item.ret_name})
+                </Text>
+                <Text style={styles.text}>{item.req_date}</Text>
+              </View>
+            )}
+          />
+        );
+      })}
+    </List.Section>
+  );
+};
 class MAnalyze_GraphScreen extends Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {
       tabledata: [],
       total: [],
+      departmentList: [],
+      department: '경영지원부', // select box 선택된 값
+      empCostList: [],
     };
   }
-
-  async componentDidMount () {
-    let datas = await axios.get (
-      'http://54.180.86.174/departments/costs?total=true'
-    );
-    let total_list = [];
-    let total_list1 = [];
-    let dept_list = [];
-    let costs_list = [];
-    for (let i = 0; i < datas.data.length; i++) {
-      dept_list.push (datas.data[i].dept_name, datas.data[i].costs * 0.0001);
-      total_list.push (
-        datas.data[i].dept_name,
-        datas.data[i].assignCosts * 0.0001
+  getDepartmentCostData = async () => {
+    try {
+      let datas = await axios.get(
+        'http://54.180.86.174/departments/costs?total=true',
       );
-      total_list1.push (total_list);
-      costs_list.push (dept_list);
-      dept_list = [];
-      total_list = [];
-    }
-
-    this.setState ({tabledata: costs_list, total: total_list1});
-    console.log ('tabledata ', costs_list);
-    console.log ('total ', total_list1);
+      let total_list = [];
+      let total_list1 = [];
+      let dept_list = [];
+      let costs_list = [];
+      for (let i = 0; i < datas.data.length; i++) {
+        dept_list.push(datas.data[i].dept_name, datas.data[i].costs * 0.0001);
+        total_list.push(
+          datas.data[i].dept_name,
+          datas.data[i].assignCosts * 0.0001,
+        );
+        total_list1.push(total_list);
+        costs_list.push(dept_list);
+        dept_list = [];
+        total_list = [];
+      }
+      this.setState({...this.state, departmentList: datas.data});
+      this.setState({tabledata: costs_list, total: total_list1});
+      console.log('tabledata ', costs_list);
+      console.log('total ', total_list1);
+    } catch (error) {}
+  };
+  componentDidMount() {
+    this.getDepartmentCostData();
   }
-
-  render () {
+  getDepartmentEmpCostData = async (itemValue) => {
+    try {
+      let datas = await axios.get(
+        `http://54.180.86.174/employees/costs?dept_name=${itemValue}`,
+      );
+      this.setState({...this.state, empCostList: datas.data});
+    } catch (error) {
+      console.log('MAnalyze_GraphScreen: ', error);
+    }
+  };
+  // select box에서 부서 선택 시
+  handleChangeValue = (itemValue) => {
+    this.setState({...this.state, department: itemValue});
+    this.getDepartmentEmpCostData(itemValue);
+  };
+  render() {
     const state = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.head}>부서별 야식대 사용금액</Text>
-        <ScrollView horizontal={true}>
-          <VictoryChart
-            width={450}
-            height={300}
-            theme={VictoryTheme.material}
-            style={{width: 'fit-contents', height: 'fit-contents'}}
+        <ScrollView>
+          {/* 막대 그래프 */}
+          <View
+          // style={{flexDirection: 'row', alignContent: 'center'}}
           >
+            <Text style={styles.head}>부서별 야식대 사용금액</Text>
+            <Picker
+              selectedValue={this.state.department}
+              style={styles.picker}
+              onValueChange={(itemValue, itemIndex) => {
+                this.handleChangeValue(itemValue);
+              }}>
+              {this.state.departmentList.map((item) => {
+                return (
+                  <Picker.Item
+                    key={item.dept_id}
+                    label={item.dept_name}
+                    value={item.dept_name}
+                  />
+                );
+              })}
+            </Picker>
+          </View>
+          <VictoryChart theme={VictoryTheme.material} style={styles.chart}>
             <VictoryBar
               style={{data: {fill: '#AFAAAB'}}}
               //alignment="start"
@@ -90,13 +156,19 @@ class MAnalyze_GraphScreen extends Component {
               }}
             />
           </VictoryChart>
+          {/* 부서내 직원들 결제 리스트 */}
+          <View style={styles.list}>
+            <EmployeesList
+              selectedDept={this.state.department}
+              empCostList={this.state.empCostList}
+            />
+          </View>
         </ScrollView>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: 'center',
@@ -108,9 +180,29 @@ const styles = StyleSheet.create ({
     textAlignVertical: 'bottom',
     flex: 1,
     fontSize: 30,
-    fontWeight: 'bold',
+    paddingTop: '5%',
+    paddingLeft: '3%',
+    fontFamily: 'Jua-Regular',
     color: '#7D756B',
   },
+  chart: {
+    width: 'fit-contents',
+    height: 'fit-contents',
+  },
+  picker: {
+    height: 50,
+    width: '100%',
+    alignSelf: 'flex-start',
+    marginLeft: '1%',
+    // alignSelf: 'flex-end',
+    // marginRight: '1%',
+  },
+  list: {
+    // flexDirection: 'row',
+    // justifyContent: 'center',
+  },
+  text: {
+    textAlign: 'right',
+  },
 });
-
 export default MAnalyze_GraphScreen;

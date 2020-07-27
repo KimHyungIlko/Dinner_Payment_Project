@@ -14,22 +14,25 @@ function Tab_Emp_Anl() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={routes.Analyze_List}
+        name="List"
         component={Analyze_ListScreen}
-        // option={{
-        //   tabBarIcon: ({focused}) => {
-        //     return (
-        //       <MaterialIcons.Button
-        //         name="dehaze"
-        //         color="black"
-        //         size={25}
-        //         backgroundColor="transparent"
-        //       />
-        //     );
-        //   },
-        // }}
+        options={{
+          tabBarLabel: 'List',
+          tabBarIcon: () => (
+            <MaterialIcons name="list" color="#333" size={24} />
+          ),
+        }}
       />
-      <Tab.Screen name={routes.Analyze_Graph} component={Analyze_GraphScreen} />
+      <Tab.Screen
+        name="Graph"
+        component={Analyze_GraphScreen}
+        options={{
+          tabBarLabel: 'Graph',
+          tabBarIcon: () => (
+            <MaterialIcons name="timeline" color="#333" size={24} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -40,8 +43,23 @@ function Tab_Mgr_Anl() {
       <Tab.Screen
         name={routes.MAnalyze_Graph}
         component={MAnalyze_GraphScreen}
+        options={{
+          tabBarLabel: 'Graph',
+          tabBarIcon: () => (
+            <MaterialIcons name="timeline" color="#333" size={24} />
+          ),
+        }}
       />
-      <Tab.Screen name={routes.MAnalyze_List} component={MAnalyze_ListScreen} />
+      <Tab.Screen
+        name={routes.MAnalyze_List}
+        component={MAnalyze_ListScreen}
+        options={{
+          tabBarLabel: 'List',
+          tabBarIcon: () => (
+            <MaterialIcons name="list" color="#333" size={24} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

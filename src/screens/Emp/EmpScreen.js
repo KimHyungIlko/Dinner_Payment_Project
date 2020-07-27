@@ -10,15 +10,14 @@ import {
 import routes from '../../../routes';
 
 class EmpScreen extends Component {
-  render () {
+  render() {
     const {navigation} = this.props;
     return (
       <View style={{flex: 1}}>
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate (routes.Ret_List)}
-          >
+            onPress={() => navigation.navigate(routes.Ret_List)}>
             <Text style={styles.buttonText}>야식대 등록</Text>
           </TouchableOpacity>
         </View>
@@ -26,13 +25,12 @@ class EmpScreen extends Component {
         <View style={styles.pointView}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate (routes.Analyze_Home)}
-          >
+            onPress={() => navigation.navigate(routes.Analyze_Home)}>
             <Text style={styles.buttonText}>지출내역확인</Text>
           </TouchableOpacity>
           <Image
             style={styles.logo}
-            source={require ('../../../image/KB_logo.png')}
+            source={require('../../../image/KB_logo.png')}
           />
         </View>
       </View>
@@ -40,7 +38,7 @@ class EmpScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     //flexDirection: 'column',
@@ -73,8 +71,7 @@ const styles = StyleSheet.create ({
   },
   buttonText: {
     fontFamily: 'Jua-Regular',
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 25,
     color: 'white',
     alignSelf: 'center',
   },

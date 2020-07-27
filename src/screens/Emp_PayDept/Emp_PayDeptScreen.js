@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'Jua-Regular',
-    fontSize: 22,
+    fontSize: 25,
     color: 'white',
     alignSelf: 'center',
   },
