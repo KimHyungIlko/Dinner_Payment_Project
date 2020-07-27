@@ -30,7 +30,7 @@ const PayCard = ({payInfo, navigation}) => {
         source={require('../../../image/box.png')}>
         <Text
           style={{
-            fontWeight: 'bold',
+            fontFamily: 'Jua-Regular',
             height: 40,
             marginLeft: 30,
             paddingTop: 10,
