@@ -72,13 +72,18 @@ const PayCard = ({payInfo, navigation}) => {
               flexDirection: 'column',
               marginLeft: 10,
             }}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.text}>{payInfo.req_cost} </Text>
+            <View style={styles.rows}>
+              <Text style={styles.text}>{payInfo.req_cost}</Text>
               <Text style={styles.left_title}>원</Text>
             </View>
-
-            <Text style={styles.text}>{payInfo.emp_num}명</Text>
-            <Text style={styles.text}>{total_data} 원</Text>
+            <View style={styles.rows}>
+              <Text style={styles.text}>{payInfo.emp_num}</Text>
+              <Text style={styles.left_title}>명</Text>
+            </View>
+            <View style={styles.rows}>
+              <Text style={styles.text}>{total_data}</Text>
+              <Text style={styles.left_title}>원</Text>
+            </View>
           </View>
 
           <View style={{flexDirection: 'column', marginLeft: 10}}>
@@ -98,22 +103,17 @@ const PayCard = ({payInfo, navigation}) => {
 class Analyze_ListScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {datas: [], name: [], total: []};
+    this.state = {datas: [], name: []};
   }
 
   async componentDidMount() {
     let datas = await axios.get('http://54.180.86.174/employees/2017/costs');
 
     console.log('데이터: ', datas.data.emp_name);
-    let total_data = 0;
-    let total_list = [];
-    for (let i = 0; i < datas.data.length; i++) {
-      total_data = total_data + datas.data[i].req_cost;
-    }
+
     this.setState({
       datas: datas.data,
       name: datas.data[0].emp_name,
-      total: total_data,
     });
     console.log('데이터', this.state.datas);
   }
@@ -121,7 +121,7 @@ class Analyze_ListScreen extends Component {
     const {datas, name, total} = this.state;
     const {navigation} = this.props;
     return (
-      <SafeAreaView styles={{flex: 1}}>
+      <SafeAreaView styles={{flex: 1, backgroundColor: 'white'}}>
         <Text style={styles.head}>{name}님의 야식대 사용 내역</Text>
         <ScrollView style={{backgroundColor: 'white'}}>
           {datas.map((data) => {
@@ -146,18 +146,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   head: {
-    textAlign: 'left',
+    textAlign: 'center',
     fontSize: 30,
-    fontWeight: 'bold',
-    color: '#7D756B',
-    borderBottomColor: 'gray',
+    // fontWeight: 'bold',
+    color: 'white',
+    borderBottomColor: '#D1D1D1',
     borderBottomWidth: 2,
-    backgroundColor: '#ECB03E',
+    backgroundColor: '#F6AD08',
   },
   img_back: {
     height: 150,
-    width: width * 0.82,
-    marginLeft: 5,
+    width: width * 0.8,
     elevation: 24,
   },
   left_title: {
@@ -173,6 +172,9 @@ const styles = StyleSheet.create({
     color: 'red',
     fontWeight: 'bold',
     textAlign: 'right',
+  },
+  rows: {
+    flexDirection: 'row',
   },
 });
 

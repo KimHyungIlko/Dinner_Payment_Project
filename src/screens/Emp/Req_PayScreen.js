@@ -152,6 +152,11 @@ class Req_PayScreen extends React.Component {
             </View>
             <View style={styles.container}>
               <Text style={styles.name}>{this.state.name}</Text>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.handleConfirmBtn()}>
+                <Text style={styles.buttonText}>확인</Text>
+              </TouchableOpacity>
               <View style={styles.infobox}>
                 <Text style={styles.text}>소개 - </Text>
                 <Text style={styles.info}>{this.state.info}</Text>
@@ -179,11 +184,6 @@ class Req_PayScreen extends React.Component {
                 />
                 <Text style={styles.staticText}>원</Text>
               </View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.handleConfirmBtn()}>
-                <Text style={styles.buttonText}>확인</Text>
-              </TouchableOpacity>
             </View>
             {visible && (
               <Dialog_Confirm

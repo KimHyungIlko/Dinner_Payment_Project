@@ -38,7 +38,7 @@ class Confirm_ReqPayScreen extends Component {
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.button}
-          onPress={() => navigation.navigate(routes.Analyze_Home)}>
+          onPress={() => navigation.navigate(routes.Emp)}>
           <Text style={styles.buttonText}>최종 결제 확인</Text>
         </TouchableOpacity>
         <TouchableOpacity
