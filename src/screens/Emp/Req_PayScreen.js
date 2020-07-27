@@ -259,15 +259,16 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
   button: {
-    padding: 5,
+    paddingLeft: 10,
     marginTop: 30,
     height: 40,
-    width: 50,
+    width: 60,
     justifyContent: 'center',
     alignSelf: 'center',
     elevation: 10,
     borderRadius: 10,
     borderColor: 'gray',
+    borderWidth: 0.5,
     backgroundColor: '#ECB03E',
   },
   buttonText: {

@@ -1,74 +1,141 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  ImageBackground,
+  Dimensions,
+} from 'react-native';
 import {Table, TableWrapper, Row, Col} from 'react-native-table-component';
 import axios from 'react-native-axios';
+import Icon from 'react-native-vector-icons/Ionicons';
+const {height, width} = Dimensions.get('window');
+let total_data = 0;
+const PayCard = ({payInfo, navigation}) => {
+  //console.log('retcard: ', retInfo.ret_img);
+
+  total_data = total_data + payInfo.req_cost;
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        paddingTop: 5,
+        paddingBottom: 10,
+        paddingLeft: 8,
+      }}>
+      <View
+        style={{
+          backgroundColor: '#D1D1D1',
+          height: 45,
+          width: 45,
+          borderRadius: 30,
+        }}>
+        <Icon
+          name="restaurant-outline"
+          size={30}
+          style={{paddingLeft: 8, paddingTop: 7, color: 'black'}}
+        />
+      </View>
+      <ImageBackground
+        style={styles.img_back}
+        source={require('../../../image/box.png')}>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            height: 40,
+            marginLeft: 30,
+            paddingTop: 10,
+            fontSize: 20,
+            color: 'gray',
+            borderBottomWidth: 1,
+            borderBottomColor: 'gray',
+            width: width * 0.7,
+            alignContent: 'flex-start',
+          }}>
+          {payInfo.ret_name}
+        </Text>
+        <View style={{flexDirection: 'row'}}>
+          <View
+            style={{
+              justifyContent: 'center',
+              marginLeft: 30,
+              flexDirection: 'column',
+            }}>
+            <Text style={styles.left_title}>사용 식대:</Text>
+            <Text style={styles.left_title}>인원수 :</Text>
+            <Text style={styles.left_title}>누적금액 :</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'column',
+              marginLeft: 10,
+            }}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.text}>{payInfo.req_cost} </Text>
+              <Text style={styles.left_title}>원</Text>
+            </View>
+
+            <Text style={styles.text}>{payInfo.emp_num}명</Text>
+            <Text style={styles.text}>{total_data} 원</Text>
+          </View>
+
+          <View style={{flexDirection: 'column', marginLeft: 10}}>
+            <Text style={{marginTop: 15, textAlign: 'center'}}>
+              날짜: {payInfo.req_date}
+            </Text>
+            <Text style={{marginTop: 15, textAlign: 'center'}}>
+              시간: {payInfo.req_time}
+            </Text>
+          </View>
+        </View>
+      </ImageBackground>
+    </View>
+  );
+};
+
 class Analyze_ListScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tableHead: ['음식점', '인원수', '사용금액', '날짜', '시간'],
-      widthArr: [120, 120, 120, 120, 120],
-      name: [],
-      tabledata: [],
-    };
+    this.state = {datas: [], name: [], total: []};
   }
+
   async componentDidMount() {
     let datas = await axios.get('http://54.180.86.174/employees/2017/costs');
-    let rowdata_list = [];
-    let totaldata_list = [];
+
+    console.log('데이터: ', datas.data.emp_name);
+    let total_data = 0;
+    let total_list = [];
     for (let i = 0; i < datas.data.length; i++) {
-      rowdata_list.push(
-        datas.data[i].ret_name,
-        datas.data[i].emp_num,
-        datas.data[i].req_cost,
-        datas.data[i].req_date,
-        datas.data[i].req_time,
-      );
-      totaldata_list.push(rowdata_list);
-      rowdata_list = [];
+      total_data = total_data + datas.data[i].req_cost;
     }
-    console.log('totaldata_list: ', datas.data[0].emp_name);
-    this.setState({tabledata: totaldata_list, name: datas.data[0].emp_name});
+    this.setState({
+      datas: datas.data,
+      name: datas.data[0].emp_name,
+      total: total_data,
+    });
+    console.log('데이터', this.state.datas);
   }
   render() {
-    const state = this.state;
-
+    const {datas, name, total} = this.state;
+    const {navigation} = this.props;
     return (
-      <View style={styles.container}>
-        <Text style={styles.head}>{state.name} 야식대 사용금액</Text>
-        <ScrollView horizontal={true}>
-          <View>
-            <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
-              <Row
-                data={state.tableHead}
-                widthArr={state.widthArr}
-                style={styles.header}
-                textStyle={styles.text}
-              />
-            </Table>
-            <ScrollView style={styles.dataWrapper}>
-              <TableWrapper
-                borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}
-                style={styles.wrapper}>
-                <Table>
-                  {state.tabledata.map((rowData, index) => (
-                    <Row
-                      key={index}
-                      data={rowData}
-                      widthArr={state.widthArr}
-                      style={[
-                        styles.row,
-                        index % 2 && {backgroundColor: '#F7F6E7'},
-                      ]}
-                      textStyle={styles.text}
-                    />
-                  ))}
-                </Table>
-              </TableWrapper>
-            </ScrollView>
-          </View>
+      <SafeAreaView styles={{flex: 1}}>
+        <Text style={styles.head}>{name}님의 야식대 사용 내역</Text>
+        <ScrollView style={{backgroundColor: 'white'}}>
+          {datas.map((data) => {
+            return (
+              <PayCard key={data.id} payInfo={data} navigation={navigation} />
+            );
+          })}
         </ScrollView>
-      </View>
+        <View>
+          <Text>
+            {name}님의 이번달 야식대 사용 총 금액: {total}
+          </Text>
+        </View>
+      </SafeAreaView>
     );
   }
 }
@@ -76,25 +143,37 @@ class Analyze_ListScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignContent: 'center',
-    padding: 16,
-    paddingTop: 30,
     backgroundColor: '#fff',
   },
   head: {
     textAlign: 'left',
-    textAlignVertical: 'bottom',
-    flex: 1,
     fontSize: 30,
     fontWeight: 'bold',
     color: '#7D756B',
+    borderBottomColor: 'gray',
+    borderBottomWidth: 2,
+    backgroundColor: '#ECB03E',
   },
-  header: {height: 50, backgroundColor: '#ECB03E'},
-  text: {textAlign: 'center', fontWeight: '100'},
-  dataWrapper: {marginTop: -1},
-  row: {height: 40, backgroundColor: '#F5D69A'},
-  wrapper: {flexDirection: 'row'},
+  img_back: {
+    height: 150,
+    width: width * 0.82,
+    marginLeft: 5,
+    elevation: 24,
+  },
+  left_title: {
+    height: 30,
+    fontSize: 15,
+    paddingTop: 5,
+    color: '#686458',
+    textAlign: 'right',
+  },
+  text: {
+    height: 30,
+    fontSize: 20,
+    color: 'red',
+    fontWeight: 'bold',
+    textAlign: 'right',
+  },
 });
 
 export default Analyze_ListScreen;
