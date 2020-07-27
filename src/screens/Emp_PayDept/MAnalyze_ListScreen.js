@@ -122,10 +122,11 @@ const styles = StyleSheet.create({
   },
   head: {
     textAlign: 'left',
+    fontFamily: 'Jua-Regular',
     textAlignVertical: 'bottom',
+    paddingBottom: 20,
     flex: 1,
-    fontSize: 30,
-    fontWeight: 'bold',
+    fontSize: 35,
     color: '#7D756B',
   },
   header: {height: 50, backgroundColor: '#ECB03E'},

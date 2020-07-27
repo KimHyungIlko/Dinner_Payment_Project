@@ -43,8 +43,23 @@ function Tab_Mgr_Anl() {
       <Tab.Screen
         name={routes.MAnalyze_Graph}
         component={MAnalyze_GraphScreen}
+        options={{
+          tabBarLabel: 'Graph',
+          tabBarIcon: () => (
+            <MaterialIcons name="timeline" color="#333" size={24} />
+          ),
+        }}
       />
-      <Tab.Screen name={routes.MAnalyze_List} component={MAnalyze_ListScreen} />
+      <Tab.Screen
+        name={routes.MAnalyze_List}
+        component={MAnalyze_ListScreen}
+        options={{
+          tabBarLabel: 'List',
+          tabBarIcon: () => (
+            <MaterialIcons name="list" color="#333" size={24} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
