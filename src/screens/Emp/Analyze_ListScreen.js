@@ -25,19 +25,6 @@ const PayCard = ({payInfo, navigation}) => {
         paddingBottom: 10,
         paddingLeft: 8,
       }}>
-      <View
-        style={{
-          backgroundColor: '#D1D1D1',
-          height: 45,
-          width: 45,
-          borderRadius: 30,
-        }}>
-        <Icon
-          name="restaurant-outline"
-          size={30}
-          style={{paddingLeft: 8, paddingTop: 7, color: 'black'}}
-        />
-      </View>
       <ImageBackground
         style={styles.img_back}
         source={require('../../../image/box.png')}>
@@ -59,7 +46,7 @@ const PayCard = ({payInfo, navigation}) => {
         <View style={{flexDirection: 'row'}}>
           <View
             style={{
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
               marginLeft: 30,
               flexDirection: 'column',
             }}>
@@ -84,14 +71,8 @@ const PayCard = ({payInfo, navigation}) => {
               <Text style={styles.text}>{total_data}</Text>
               <Text style={styles.left_title}>원</Text>
             </View>
-          </View>
-
-          <View style={{flexDirection: 'column', marginLeft: 10}}>
-            <Text style={{marginTop: 15, textAlign: 'center'}}>
-              날짜: {payInfo.req_date}
-            </Text>
-            <Text style={{marginTop: 15, textAlign: 'center'}}>
-              시간: {payInfo.req_time}
+            <Text style={styles.timeTitle}>
+              {payInfo.req_date} / {payInfo.req_time}
             </Text>
           </View>
         </View>
@@ -147,30 +128,40 @@ const styles = StyleSheet.create({
   },
   head: {
     textAlign: 'center',
-    fontSize: 30,
-    // fontWeight: 'bold',
+    fontSize: 20,
+    paddingTop: 5,
+    fontFamily: 'Jua-Regular',
     color: 'white',
     borderBottomColor: '#D1D1D1',
     borderBottomWidth: 2,
     backgroundColor: '#F6AD08',
   },
   img_back: {
-    height: 150,
-    width: width * 0.8,
+    height: 160,
+    width: width * 0.95,
     elevation: 24,
   },
   left_title: {
     height: 30,
+    fontFamily: 'Jua-Regular',
     fontSize: 15,
     paddingTop: 5,
     color: '#686458',
     textAlign: 'right',
   },
+  timeTitle: {
+    height: 30,
+    fontFamily: 'Jua-Regular',
+    fontSize: 15,
+    paddingTop: 5,
+    color: '#686458',
+    alignItems: 'flex-end',
+  },
   text: {
+    fontFamily: 'Jua-Regular',
     height: 30,
     fontSize: 20,
     color: 'red',
-    fontWeight: 'bold',
     textAlign: 'right',
   },
   rows: {

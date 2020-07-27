@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingLeft: '4%',
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: 'Jua-Regular',
     color: '#7D756B',
   },
   bottomGraph: {},
