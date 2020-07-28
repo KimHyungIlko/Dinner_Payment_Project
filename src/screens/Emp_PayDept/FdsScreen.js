@@ -150,7 +150,11 @@ class FDSList extends Component {
                     <View key={index} style={{flexDirection: 'column'}}>
                       <TouchableOpacity
                         style={styles.button}
-                        onPress={() => navigation.navigate(routes.Emp_Fds)}>
+                        onPress={() =>
+                          navigation.navigate(routes.Emp_Fds, {
+                            empid: data.emp_id,
+                          })
+                        }>
                         <View
                           style={{
                             backgroundColor: '#81776C',

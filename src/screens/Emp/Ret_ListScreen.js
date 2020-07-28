@@ -79,7 +79,7 @@ class Ret_ListScreen extends Component {
     return (
       <View style={{backgroundColor: 'white'}}>
         <ScrollView>
-          {datas.map((data) => {
+          {datas.map((data, index) => {
             return (
               <RetCard key={data.id} retInfo={data} navigation={navigation} />
             );
