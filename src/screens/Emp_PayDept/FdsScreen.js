@@ -24,13 +24,14 @@ class FDSList extends Component {
         <View>
           <Text
             style={{
+              marginTop: height * 0.01,
               marginLeft: width * 0.05,
               width: width * 0.9,
               fontSize: 22,
               color: '#81776C',
-              fontWeight: 'bold',
               borderBottomColor: 'gray',
               borderBottomWidth: 0.5,
+              fontFamily: 'Jua-Regular',
             }}>
             부서별 FDS
           </Text>
@@ -77,7 +78,8 @@ class FDSList extends Component {
                         <Text
                           style={{
                             fontSize: 15,
-                            fontWeight: 'bold',
+                            fontFamily: 'Jua-Regular',
+                            paddingTop: height * 0.003,
                             paddingLeft: width * 0.02,
                             borderBottomColor: '#81776C',
                             borderBottomWidth: 1,
@@ -114,7 +116,7 @@ class FDSList extends Component {
               width: width * 0.9,
               fontSize: 22,
               color: '#81776C',
-              fontWeight: 'bold',
+              fontFamily: 'Jua-Regular',
               borderBottomColor: 'gray',
               borderBottomWidth: 0.5,
             }}>
@@ -131,7 +133,7 @@ class FDSList extends Component {
                   style={{
                     fontSize: 22,
                     color: '#81776C',
-                    fontWeight: 'bold',
+                    fontFamily: 'Jua-Regular',
                     textAlign: 'center',
                   }}>
                   조회된 내역이 없습니다.
@@ -165,8 +167,9 @@ class FDSList extends Component {
                           }}>
                           <Text
                             style={{
+                              paddingTop: height * 0.003,
                               fontSize: 15,
-                              fontWeight: 'bold',
+                              fontFamily: 'Jua-Regular',
                               paddingLeft: width * 0.02,
                               color: 'white',
                             }}>
@@ -177,6 +180,8 @@ class FDSList extends Component {
                               fontSize: 15,
                               color: 'white',
                               paddingRight: width * 0.02,
+                              fontFamily: 'Jua-Regular',
+                              paddingTop: height * 0.003,
                             }}>
                             {data.dept_name}
                           </Text>
@@ -271,7 +276,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     color: '#81776C',
-    fontWeight: 'bold',
+    fontFamily: 'Jua-Regular',
   },
   button: {
     marginLeft: width * 0.05,

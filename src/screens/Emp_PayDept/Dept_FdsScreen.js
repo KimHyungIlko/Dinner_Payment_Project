@@ -37,7 +37,8 @@ class Dept_FdsScreen extends Component {
               width: width * 0.9,
               fontSize: 22,
               color: '#81776C',
-              fontWeight: 'bold',
+              fontFamily: 'Jua-Regular',
+              paddingTop: height * 0.01,
               borderBottomColor: 'gray',
               borderBottomWidth: 0.5,
             }}>
@@ -46,7 +47,7 @@ class Dept_FdsScreen extends Component {
           <ScrollView>
             {datas.map((data, index) => {
               return (
-                <View style={styles.button}>
+                <View key={index} style={styles.button}>
                   <View
                     style={{
                       backgroundColor: '#81776C',
@@ -58,7 +59,8 @@ class Dept_FdsScreen extends Component {
                     <Text
                       style={{
                         fontSize: 15,
-                        fontWeight: 'bold',
+                        fontFamily: 'Jua-Regular',
+                        paddingTop: height * 0.003,
                         paddingLeft: width * 0.02,
                         color: 'white',
                       }}>
@@ -69,6 +71,8 @@ class Dept_FdsScreen extends Component {
                         fontSize: 15,
                         color: 'white',
                         paddingRight: width * 0.02,
+                        fontFamily: 'Jua-Regular',
+                        paddingTop: height * 0.003,
                       }}>
                       {data.dept_name}
                     </Text>
@@ -113,7 +117,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     color: '#81776C',
-    fontWeight: 'bold',
+    fontFamily: 'Jua-Regular',
+    paddingTop: height * 0.003,
   },
   button: {
     marginLeft: width * 0.05,

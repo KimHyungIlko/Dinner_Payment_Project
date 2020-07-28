@@ -13,6 +13,7 @@ import {Button, Card, Paragraph, Title} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import routes from '../../../routes';
 import axios from 'react-native-axios';
+const {height, width} = Dimensions.get('window');
 // 식당 리스트
 const RetCard = ({retInfo, navigation}) => {
   //console.log('retcard: ', retInfo.ret_img);
@@ -90,7 +91,6 @@ class Ret_ListScreen extends Component {
   }
 }
 
-const width = Dimensions.get('screen').width;
 const styles = StyleSheet.create({
   button: {
     marginTop: 15,
@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 20,
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily: 'Jua-Regular',
+    paddingTop: height * 0.003,
     justifyContent: 'flex-end',
   },
   text2: {
@@ -114,6 +115,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'white',
     justifyContent: 'flex-end',
+    fontFamily: 'Jua-Regular',
+    paddingTop: height * 0.003,
   },
 });
 

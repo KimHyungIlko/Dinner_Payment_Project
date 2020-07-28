@@ -12,7 +12,10 @@ import routes from '../../routes';
 const Tab = createBottomTabNavigator();
 function Tab_Emp_Anl() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      initialRouteName="List"
+      activeColor="#e91e63"
+      style={{backgroundColor: 'red'}}>
       <Tab.Screen
         name="List"
         component={Analyze_ListScreen}
