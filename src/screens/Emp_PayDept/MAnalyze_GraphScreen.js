@@ -194,13 +194,8 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'flex-start',
     marginLeft: '1%',
-    // alignSelf: 'flex-end',
-    // marginRight: '1%',
   },
-  list: {
-    // flexDirection: 'row',
-    // justifyContent: 'center',
-  },
+
   text: {
     textAlign: 'right',
   },

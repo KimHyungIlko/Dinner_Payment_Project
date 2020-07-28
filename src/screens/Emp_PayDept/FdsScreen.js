@@ -63,7 +63,11 @@ class FDSList extends Component {
                   <View key={index}>
                     <TouchableOpacity
                       style={styles.button}
-                      onPress={() => navigation.navigate(routes.Dept_Fds)}>
+                      onPress={() =>
+                        navigation.navigate(routes.Dept_Fds, {
+                          dept: data.dept_name,
+                        })
+                      }>
                       <View
                         style={{
                           backgroundColor: '#81776C',
