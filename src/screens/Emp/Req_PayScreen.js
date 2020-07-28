@@ -5,8 +5,6 @@ import {
   View,
   Image,
   StyleSheet,
-  Keyboard,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Text,
   Dimensions,
@@ -138,9 +136,13 @@ class Req_PayScreen extends Component {
             />
             <Text style={styles.staticText}>원</Text>
           </View>
-          <Button style={styles.button} onPress={() => this.handleConfirmBtn()}>
-            <Text style={styles.confirm}>확인</Text>
-          </Button>
+          <View style={{height: height * 0.15}}>
+            <Button
+              style={styles.button}
+              onPress={() => this.handleConfirmBtn()}>
+              <Text style={styles.confirm}>확인</Text>
+            </Button>
+          </View>
           {visible && (
             <Dialog_Confirm
               changeVisible={this.changeVisible}
