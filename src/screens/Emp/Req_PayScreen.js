@@ -5,7 +5,6 @@ import {
   View,
   Image,
   StyleSheet,
-  TouchableWithoutFeedback,
   Text,
   Dimensions,
 } from 'react-native';

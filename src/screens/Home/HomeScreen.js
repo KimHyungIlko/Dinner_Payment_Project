@@ -5,10 +5,10 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image
+        {/* <Image
           source={require('../../../image/logo.png')}
           style={styles.image}
-        />
+        /> */}
       </View>
     );
   }
