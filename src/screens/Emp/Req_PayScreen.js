@@ -1,25 +1,19 @@
 import React, {Component, useState} from 'react';
 import {
   TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
+  ScrollView,
   View,
-  Dimensions,
-  Animated,
   Image,
-  ImageBackground,
+  StyleSheet,
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Text,
+  Dimensions,
 } from 'react-native';
-import SlidingUpPanel from 'rn-sliding-up-panel';
+import {Button, Dialog, Portal, Paragraph, Provider} from 'react-native-paper';
 import routes from '../../../routes';
-import {
-  Card,
-  Button,
-  Dialog,
-  Portal,
-  Paragraph,
-  Provider,
-} from 'react-native-paper';
+
 const {height, width} = Dimensions.get('window');
 const Dialog_Confirm = ({
   changeVisible,
@@ -31,22 +25,24 @@ const Dialog_Confirm = ({
   id,
 }) => {
   const [visible, setVisible] = useState(true);
-
   const hideDialog = (change) => {
     setVisible(false);
     changeVisible(navigation, change, id, name, image, price, people);
   };
-
   return (
     <Provider style={{width: '100%', height: '100%'}}>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
-          {/* <Dialog.Title>Alert</Dialog.Title> */}
           <Dialog.Content>
             <Paragraph>결제 요청을 하시겠습니까?</Paragraph>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={() => hideDialog(true)}>확인</Button>
+            <Button
+              onPress={() => {
+                hideDialog(true);
+              }}>
+              확인
+            </Button>
             <Button onPress={() => hideDialog(false)}>취소</Button>
           </Dialog.Actions>
         </Dialog>
@@ -54,14 +50,13 @@ const Dialog_Confirm = ({
     </Provider>
   );
 };
-
-class Req_PayScreen extends React.Component {
+class Req_PayScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.route.params.id, // Ret_id
       name: this.props.route.params.name,
       image: this.props.route.params.image,
+      id: this.props.route.params.id,
       people: 1,
       price: 0,
       visible: false,
@@ -70,13 +65,6 @@ class Req_PayScreen extends React.Component {
       info: this.props.route.params.info,
     };
   }
-
-  static defaultProps = {
-    draggableRange: {top: height * 0.7, bottom: 100},
-  };
-
-  _draggedValue = new Animated.Value(height * 0.4);
-
   // 확인 버튼 클릭 시 -> 다이얼로그가 보이도록
   handleConfirmBtn = () => {
     this.setState({
@@ -84,14 +72,12 @@ class Req_PayScreen extends React.Component {
       visible: true,
     });
   };
-
   // 다이얼로그 컴포넌트에서 최종 확인을 누르면
   changeVisible = (navigation, change, id, name, image, people, price) => {
     this.setState({
       ...this.state,
       visible: false,
     });
-
     // navigate
     if (change == true) {
       const reqData = {
@@ -99,13 +85,13 @@ class Req_PayScreen extends React.Component {
         emp_name: '길혜영',
         dept_id: 4,
         dept_name: '디지털사업본부',
-        ret_id: Number(id),
+        ret_id: Number(this.props.route.params.id),
         ret_name: name,
         ret_img: image,
         req_cost: Number(price),
         emp_num: Number(people),
       };
-
+      console.log('next page id : ' + this.props.route.params.id);
       // data 전달할 때, 각각 전달하기 보단 obj 형태로
       navigation.navigate(routes.Confirm_ReqPay, {
         image: this.state.image,
@@ -119,176 +105,107 @@ class Req_PayScreen extends React.Component {
   render() {
     const {navigation} = this.props;
     const {visible} = this.state;
-
-    const {top, bottom} = this.props.draggableRange;
-    const textTranslateY = this._draggedValue.interpolate({
-      inputRange: [bottom, top * 0.7],
-      outputRange: [0, 3],
-      extrapolate: 'clamp',
-    });
-
-    const textTranslateX = this._draggedValue.interpolate({
-      inputRange: [bottom, top * 0.7],
-      outputRange: [0, -50],
-      extrapolate: 'clamp',
-    });
-
-    const textScale = this._draggedValue.interpolate({
-      inputRange: [bottom, top * 0.7],
-      outputRange: [1, 0.7],
-      extrapolate: 'clamp',
-    });
-
-    console.log('입력: ', this.state.people);
+    console.log('req_pay');
+    console.log('visible: ', visible);
     return (
-      <View style={styles.container}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-          }}>
-          <ImageBackground
-            style={{justifyContent: 'center', height: 400, width: width}}
-            source={{uri: this.state.image}}></ImageBackground>
-        </View>
-
-        <SlidingUpPanel
-          //ref={(c) => (this._panel = c)}
-          draggableRange={this.props.draggableRange}
-          animatedValue={this._draggedValue}
-          height={height * 0.7}
-          friction={0.7}
-          backdropOpacity={0}>
-          <View style={styles.panel}>
-            <View style={styles.panelHeader}>
-              <Animated.View
-                style={{
-                  transform: [
-                    {translateY: textTranslateY},
-                    {translateX: textTranslateX},
-                    {scale: textScale},
-                  ],
-                }}>
-                <Text style={styles.textHeader}>결제하기</Text>
-              </Animated.View>
-            </View>
-            <View style={styles.container}>
-              <Text style={styles.name}>{this.state.name}</Text>
-              <View style={styles.infobox}>
-                <Text style={styles.text}>소개 - </Text>
-                <Text style={styles.info}>{this.state.info}</Text>
-              </View>
-              <View style={styles.infobox}>
-                <Text style={styles.text}>위치 - </Text>
-                <Text style={styles.info}>{this.state.pos}</Text>
-              </View>
-              <View style={styles.input}>
-                <TextInput
-                  style={styles.inputline}
-                  placeholder="인원을 입력하세요"
-                  onChangeText={(people) => this.setState({people})}
-                  value={this.state.people}
-                />
-                <Text style={styles.staticText}>명</Text>
-              </View>
-              <View style={styles.input}>
-                <TextInput
-                  style={styles.inputline}
-                  placeholder="금액을 입력하세요"
-                  onChangeText={(price) => this.setState({price})}
-                  value={this.state.price}
-                />
-                <Text style={styles.staticText}>원</Text>
-              </View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.handleConfirmBtn()}>
-                <Text style={styles.buttonText}>확인</Text>
-              </TouchableOpacity>
-            </View>
-            {visible && (
-              <Dialog_Confirm
-                changeVisible={this.changeVisible}
-                navigation={navigation}
-                id={this.state.id}
-                name={this.state.name}
-                image={this.state.image}
-                price={this.state.price}
-                people={this.state.people}
-              />
-            )}
+      <ScrollView>
+        <View style={{flex: 1}}>
+          <Image style={styles.img} source={{uri: this.state.image}} />
+          <Text style={styles.title}>
+            {this.state.name} {'\n'}
+          </Text>
+          <View style={styles.infobox}>
+            <Text style={styles.text}>소개 : </Text>
+            <Text style={styles.info}>{this.state.info}</Text>
           </View>
-        </SlidingUpPanel>
-      </View>
+          <View style={styles.infobox}>
+            <Text style={styles.text}>위치 : </Text>
+            <Text style={styles.info}>{this.state.pos}</Text>
+          </View>
+          <View style={styles.inputbox}>
+            <TextInput
+              style={styles.input}
+              placeholder="인원을 입력하세요"
+              onChangeText={(people) => this.setState({people})}
+            />
+            <Text style={styles.staticText}>명</Text>
+          </View>
+          <View style={styles.inputbox}>
+            <TextInput
+              style={styles.input}
+              placeholder="금액을 입력하세요"
+              onChangeText={(price) => this.setState({price})}
+            />
+            <Text style={styles.staticText}>원</Text>
+          </View>
+          <Button style={styles.button} onPress={() => this.handleConfirmBtn()}>
+            <Text style={styles.confirm}>확인</Text>
+          </Button>
+          {visible && (
+            <Dialog_Confirm
+              changeVisible={this.changeVisible}
+              navigation={navigation}
+              name={this.state.name}
+              image={this.state.image}
+              price={this.state.price}
+              people={this.state.people}
+            />
+          )}
+        </View>
+      </ScrollView>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
+  img: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: width,
+    height: height * 0.3,
   },
-  panel: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    position: 'relative',
-  },
-  panelHeader: {
-    height: 80,
-    backgroundColor: '#ECB03E',
-    padding: 15,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  textHeader: {
-    fontSize: 28,
-    color: '#FFF',
-  },
-  name: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 10,
-    fontSize: 28,
-    fontWeight: 'bold',
-    borderBottomWidth: 2,
-    borderBottomColor: '#7D756B',
-  },
-  text: {
-    paddingTop: 30,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  info: {
-    paddingTop: 34,
-    fontSize: 16,
+  title: {
+    paddingTop: height * 0.015,
+    paddingLeft: width * 0.02,
+    fontSize: 35,
+    fontFamily: 'Jua-Regular',
+    width: width,
+    height: height * 0.08,
   },
   infobox: {
-    width: width * 0.85,
-    paddingLeft: 10,
-    flexDirection: 'row',
-    paddingLeft: 10,
+    paddingTop: height * 0.02,
+    paddingLeft: width * 0.02,
+    backgroundColor: '#81776C',
+    height: height * 0.1,
   },
-  input: {
+  text: {
+    fontFamily: 'Jua-Regular',
+    fontSize: 20,
+    color: 'white',
+  },
+  info: {
+    fontSize: 16,
+    color: 'white',
+  },
+  inputbox: {
+    paddingTop: height * 0.04,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingTop: 40,
   },
-  inputline: {
-    fontSize: 24,
+  input: {
+    fontSize: 18,
     borderBottomColor: 'gray',
     borderBottomWidth: 0.5,
   },
   staticText: {
     fontSize: 33,
-    paddingTop: 7,
-    fontWeight: 'bold',
+    paddingTop: height * 0.01,
+    fontFamily: 'Jua-Regular',
     paddingLeft: 5,
   },
   button: {
-    paddingLeft: 10,
     marginTop: 30,
-    height: 40,
-    width: 60,
+    height: height * 0.05,
+    width: width * 0.2,
     justifyContent: 'center',
     alignSelf: 'center',
     elevation: 10,
@@ -297,10 +214,10 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     backgroundColor: '#ECB03E',
   },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  confirm: {
     color: 'white',
+    fontFamily: 'Jua-Regular',
+    fontSize: 20,
   },
 });
 export default Req_PayScreen;
