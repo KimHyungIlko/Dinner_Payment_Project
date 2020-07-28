@@ -24,7 +24,7 @@ const Dialog_Confirm = ({
   const [visible, setVisible] = useState(true);
   const hideDialog = (change) => {
     setVisible(false);
-    changeVisible(navigation, change, id, name, image, price, people);
+    changeVisible(navigation, change, id, name, image, people, price);
   };
   return (
     <Provider style={{width: '100%', height: '100%'}}>
@@ -93,8 +93,8 @@ class Req_PayScreen extends Component {
       navigation.navigate(routes.Confirm_ReqPay, {
         image: this.state.image,
         name: this.state.name,
-        price: this.state.price,
         people: this.state.people,
+        price: this.state.price,
         reqData: reqData,
       });
     }
