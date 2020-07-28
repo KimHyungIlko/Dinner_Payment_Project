@@ -21,6 +21,7 @@ const EmployeesList = ({selectedDept, empCostList}) => {
   return (
     <List.Section>
       <List.Subheader>{selectedDept}</List.Subheader>
+      <Divider />
       {empCostList.map((item) => {
         return (
           <List.Item

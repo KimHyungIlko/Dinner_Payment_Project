@@ -17,9 +17,7 @@ const {height, width} = Dimensions.get('window');
 
 class Confirm_ReqPayScreen extends Component {
   async sendInfo() {
-    console.log('진짜 post...');
     const {reqData} = this.props.route.params;
-    console.log(reqData);
 
     await axios
       .post(`http://54.180.86.174/employees/${reqData.emp_id}/costs`, reqData, {
@@ -97,19 +95,21 @@ const styles = StyleSheet.create({
   columnButton: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingTop: height * 0.05,
+    height: height * 0.5,
   },
   title: {
-    paddingTop: height * 0.01,
-    paddingLeft: width * 0.01,
+    paddingTop: height * 0.03,
+    paddingLeft: width * 0.02,
     fontSize: 35,
     fontFamily: 'Jua-Regular',
     width: width,
     height: height * 0.08,
   },
   staticTitle: {
-    paddingTop: height * 0.01,
-    paddingLeft: width * 0.01,
-    fontSize: 25,
+    paddingTop: height * 0.03,
+    paddingLeft: width * 0.02,
+    fontSize: 27,
     fontFamily: 'Jua-Regular',
     width: width,
     borderColor: 'gray',
@@ -118,17 +118,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#81776C',
     width: width,
     alignItems: 'flex-end',
+    paddingRight: width * 0.02,
   },
   confirmView: {
     alignItems: 'flex-start',
     width: width,
+    height: height * 0.08,
     marginTop: 25,
     backgroundColor: '#81776C',
   },
   confirmText: {
     marginLeft: 10,
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 23,
     color: 'white',
     fontFamily: 'Jua-Regular',
   },
@@ -166,6 +168,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   button: {
+    marginLeft: 10,
     marginTop: 30,
     marginRight: 10,
     justifyContent: 'center',
