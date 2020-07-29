@@ -11,7 +11,7 @@ import {
 import {Table, TableWrapper, Row, Col} from 'react-native-table-component';
 import axios from 'react-native-axios';
 import Divider from 'react-native-paper';
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get ('window');
 let total_data = 0;
 const PayCard = ({payInfo, navigation}) => {
   total_data = total_data + payInfo.req_cost;
@@ -22,10 +22,12 @@ const PayCard = ({payInfo, navigation}) => {
         paddingTop: height * 0.01,
         paddingBottom: height * 0.01,
         paddingLeft: width * 0.02,
-      }}>
+      }}
+    >
       <ImageBackground
         style={styles.img_back}
-        source={require('../../../image/box.png')}>
+        source={require ('../../../image/box.png')}
+      >
         <Text
           style={{
             fontFamily: 'Jua-Regular',
@@ -38,7 +40,8 @@ const PayCard = ({payInfo, navigation}) => {
             borderBottomColor: 'gray',
             width: width * 0.8,
             alignContent: 'flex-start',
-          }}>
+          }}
+        >
           {payInfo.ret_name}
         </Text>
         <View style={styles.rows}>
@@ -46,7 +49,8 @@ const PayCard = ({payInfo, navigation}) => {
             style={{
               justifyContent: 'flex-start',
               marginLeft: 30,
-            }}>
+            }}
+          >
             <Text style={styles.left_title}>사용 식대:</Text>
             <Text style={styles.left_title}>인원수 :</Text>
             <Text style={styles.left_title}>누적금액 :</Text>
@@ -56,7 +60,8 @@ const PayCard = ({payInfo, navigation}) => {
               marginLeft: 10,
               position: 'absolute',
               right: 20,
-            }}>
+            }}
+          >
             <View style={styles.rows}>
               <Text style={styles.text}>{payInfo.req_cost}</Text>
               <Text style={styles.left_title}>원</Text>
@@ -80,32 +85,32 @@ const PayCard = ({payInfo, navigation}) => {
 };
 
 class Analyze_ListScreen extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super (props);
     this.state = {datas: [], name: [], total: []};
   }
 
-  async componentDidMount() {
-    let datas = await axios.get('http://54.180.86.174/employees/2017/costs');
+  async componentDidMount () {
+    let datas = await axios.get ('http://54.180.86.174/employees/2017/costs');
     let costsum = 0;
     for (let i = 0; i < datas.data.length; i++) {
       costsum += datas.data[i].req_cost;
     }
 
-    this.setState({
+    this.setState ({
       datas: datas.data,
       name: datas.data[0].emp_name,
       total: costsum,
     });
   }
-  render() {
+  render () {
     const {datas, name, total} = this.state;
     const {navigation} = this.props;
     return (
       <ScrollView style={{backgroundColor: 'white'}}>
         <Text style={styles.head}>{name}님의 야식대 사용 내역</Text>
 
-        {datas.map((data) => {
+        {datas.map (data => {
           return (
             <PayCard key={data.id} payInfo={data} navigation={navigation} />
           );
@@ -120,7 +125,7 @@ class Analyze_ListScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   container: {
     flex: 1,
     backgroundColor: '#fff',

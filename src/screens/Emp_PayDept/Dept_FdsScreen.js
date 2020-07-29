@@ -4,24 +4,24 @@ import axios from 'react-native-axios';
 import {ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get ('window');
 
 class Dept_FdsScreen extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super (props);
     this.state = {datas: [], dept: this.props.route.params.dept};
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     try {
-      let responsedata = await axios.get(
-        `http://54.180.86.174/employees/costs?dept_name=${this.state.dept}`,
+      let responsedata = await axios.get (
+        `http://54.180.86.174/employees/costs?dept_name=${this.state.dept}`
       );
-      this.setState({datas: responsedata.data});
+      this.setState ({datas: responsedata.data});
     } catch (error) {}
   }
 
-  render() {
+  render () {
     const {navigation} = this.props;
     const {datas, dept} = this.state;
     return (
@@ -40,11 +40,12 @@ class Dept_FdsScreen extends Component {
               paddingTop: height * 0.01,
               borderBottomColor: 'gray',
               borderBottomWidth: 0.5,
-            }}>
+            }}
+          >
             {dept} 야식대 사용 현황
           </Text>
-          <ScrollView>
-            {datas.map((data, index) => {
+          <ScrollView style={{height: height * 0.787}}>
+            {datas.map ((data, index) => {
               return (
                 <View key={index} style={styles.button}>
                   <View
@@ -54,7 +55,8 @@ class Dept_FdsScreen extends Component {
                       borderTopLeftRadius: 8,
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                    }}>
+                    }}
+                  >
                     <Text
                       style={{
                         fontSize: 15,
@@ -62,7 +64,8 @@ class Dept_FdsScreen extends Component {
                         paddingTop: height * 0.003,
                         paddingLeft: width * 0.02,
                         color: 'white',
-                      }}>
+                      }}
+                    >
                       {data.emp_name}
                     </Text>
                     <Text
@@ -72,7 +75,8 @@ class Dept_FdsScreen extends Component {
                         paddingRight: width * 0.02,
                         fontFamily: 'Jua-Regular',
                         paddingTop: height * 0.003,
-                      }}>
+                      }}
+                    >
                       {data.dept_name}
                     </Text>
                   </View>
@@ -90,7 +94,8 @@ class Dept_FdsScreen extends Component {
                       style={{
                         paddingRight: width * 0.01,
                         justifyContent: 'flex-end',
-                      }}>
+                      }}
+                    >
                       <Text>{data.req_date}</Text>
                     </View>
                   </View>
@@ -104,7 +109,7 @@ class Dept_FdsScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   center: {
     backgroundColor: '#FAD47E',
     height: height * 0.1,

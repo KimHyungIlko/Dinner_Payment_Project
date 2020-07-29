@@ -11,7 +11,7 @@ import {
 import {Button, Dialog, Portal, Paragraph, Provider} from 'react-native-paper';
 import routes from '../../../routes';
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get ('window');
 const Dialog_Confirm = ({
   changeVisible,
   navigation,
@@ -21,10 +21,10 @@ const Dialog_Confirm = ({
   people,
   id,
 }) => {
-  const [visible, setVisible] = useState(true);
-  const hideDialog = (change) => {
-    setVisible(false);
-    changeVisible(navigation, change, id, name, image, people, price);
+  const [visible, setVisible] = useState (true);
+  const hideDialog = change => {
+    setVisible (false);
+    changeVisible (navigation, change, id, name, image, people, price);
   };
   return (
     <Provider style={{width: '100%', height: '100%'}}>
@@ -36,11 +36,12 @@ const Dialog_Confirm = ({
           <Dialog.Actions>
             <Button
               onPress={() => {
-                hideDialog(true);
-              }}>
+                hideDialog (true);
+              }}
+            >
               확인
             </Button>
-            <Button onPress={() => hideDialog(false)}>취소</Button>
+            <Button onPress={() => hideDialog (false)}>취소</Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>
@@ -48,8 +49,8 @@ const Dialog_Confirm = ({
   );
 };
 class Req_PayScreen extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super (props);
     this.state = {
       name: this.props.route.params.name,
       image: this.props.route.params.image,
@@ -64,14 +65,14 @@ class Req_PayScreen extends Component {
   }
   // 확인 버튼 클릭 시 -> 다이얼로그가 보이도록
   handleConfirmBtn = () => {
-    this.setState({
+    this.setState ({
       ...this.state,
       visible: true,
     });
   };
   // 다이얼로그 컴포넌트에서 최종 확인을 누르면
   changeVisible = (navigation, change, id, name, image, people, price) => {
-    this.setState({
+    this.setState ({
       ...this.state,
       visible: false,
     });
@@ -82,15 +83,15 @@ class Req_PayScreen extends Component {
         emp_name: '길혜영',
         dept_id: 4,
         dept_name: '디지털사업본부',
-        ret_id: Number(this.props.route.params.id),
+        ret_id: Number (this.props.route.params.id),
         ret_name: name,
         ret_img: image,
-        req_cost: Number(price),
-        emp_num: Number(people),
+        req_cost: Number (price),
+        emp_num: Number (people),
       };
 
       // data 전달할 때, 각각 전달하기 보단 obj 형태로
-      navigation.navigate(routes.Confirm_ReqPay, {
+      navigation.navigate (routes.Confirm_ReqPay, {
         image: this.state.image,
         name: this.state.name,
         people: this.state.people,
@@ -99,7 +100,7 @@ class Req_PayScreen extends Component {
       });
     }
   };
-  render() {
+  render () {
     const {navigation} = this.props;
     const {visible} = this.state;
 
@@ -122,7 +123,7 @@ class Req_PayScreen extends Component {
             <TextInput
               style={styles.input}
               placeholder="인원을 입력하세요"
-              onChangeText={(people) => this.setState({people})}
+              onChangeText={people => this.setState ({people})}
             />
             <Text style={styles.staticText}>명</Text>
           </View>
@@ -130,18 +131,19 @@ class Req_PayScreen extends Component {
             <TextInput
               style={styles.input}
               placeholder="금액을 입력하세요"
-              onChangeText={(price) => this.setState({price})}
+              onChangeText={price => this.setState ({price})}
             />
             <Text style={styles.staticText}>원</Text>
           </View>
           <View style={{height: height * 0.15}}>
             <Button
               style={styles.button}
-              onPress={() => this.handleConfirmBtn()}>
+              onPress={() => this.handleConfirmBtn ()}
+            >
               <Text style={styles.confirm}>확인</Text>
             </Button>
           </View>
-          {visible && (
+          {visible &&
             <Dialog_Confirm
               changeVisible={this.changeVisible}
               navigation={navigation}
@@ -149,14 +151,13 @@ class Req_PayScreen extends Component {
               image={this.state.image}
               price={this.state.price}
               people={this.state.people}
-            />
-          )}
+            />}
         </View>
       </ScrollView>
     );
   }
 }
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   img: {
     justifyContent: 'center',
     alignItems: 'center',
