@@ -22,7 +22,6 @@ class Emp_FdsScreen extends Component {
   }
 
   render() {
-    console.log('가져온 dept:', this.state.empid);
     const {navigation} = this.props;
     const {datas} = this.state;
     return (

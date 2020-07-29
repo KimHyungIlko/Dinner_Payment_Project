@@ -31,7 +31,6 @@ class Analyze_GraphScreen extends Component {
 
   async componentDidMount() {
     let datas = await axios.get('http://54.180.86.174/employees/2017/costs');
-    console.log('길혜영 정보', datas.data);
     let row_list = [];
     let total_list = [];
     let dept_name;
@@ -46,7 +45,6 @@ class Analyze_GraphScreen extends Component {
       name: datas.data[0].emp_name,
       deptname: datas.data[0].dept_name,
     });
-    console.log('total: ', this.state.total);
   }
 
   render() {

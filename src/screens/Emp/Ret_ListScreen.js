@@ -16,7 +16,6 @@ import axios from 'react-native-axios';
 const {height, width} = Dimensions.get('window');
 // 식당 리스트
 const RetCard = ({retInfo, navigation}) => {
-  //console.log('retcard: ', retInfo.ret_img);
   let info, pos;
   const information = (retInfo) => {
     if (retInfo.name == '오스테리아샘킴') {
@@ -45,8 +44,6 @@ const RetCard = ({retInfo, navigation}) => {
       info: info,
       id: retInfo.id,
     });
-
-    console.log('id : ' + retInfo.id);
   };
   return (
     <TouchableOpacity

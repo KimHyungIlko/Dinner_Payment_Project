@@ -14,8 +14,6 @@ import Divider from 'react-native-paper';
 const {height, width} = Dimensions.get('window');
 let total_data = 0;
 const PayCard = ({payInfo, navigation}) => {
-  //console.log('retcard: ', retInfo.ret_img);
-
   total_data = total_data + payInfo.req_cost;
   return (
     <View
@@ -99,7 +97,6 @@ class Analyze_ListScreen extends Component {
       name: datas.data[0].emp_name,
       total: costsum,
     });
-    // console.log('데이터', this.state.datas);
   }
   render() {
     const {datas, name, total} = this.state;

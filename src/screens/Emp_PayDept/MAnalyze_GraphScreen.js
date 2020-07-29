@@ -17,7 +17,6 @@ import {List, Divider} from 'react-native-paper';
 import {Picker} from '@react-native-community/picker';
 // 해당 부서에서 결제한 직원들의 리스트 목록 컴포넌트
 const EmployeesList = ({selectedDept, empCostList}) => {
-  console.log('EmployeesList: ', empCostList);
   return (
     <List.Section>
       <List.Subheader>{selectedDept}</List.Subheader>
@@ -76,8 +75,6 @@ class MAnalyze_GraphScreen extends Component {
       }
       this.setState({...this.state, departmentList: datas.data});
       this.setState({tabledata: costs_list, total: total_list1});
-      console.log('tabledata ', costs_list);
-      console.log('total ', total_list1);
     } catch (error) {}
   };
   componentDidMount() {

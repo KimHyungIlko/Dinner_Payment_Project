@@ -88,7 +88,7 @@ class Req_PayScreen extends Component {
         req_cost: Number(price),
         emp_num: Number(people),
       };
-      console.log('next page id : ' + this.props.route.params.id);
+
       // data 전달할 때, 각각 전달하기 보단 obj 형태로
       navigation.navigate(routes.Confirm_ReqPay, {
         image: this.state.image,
@@ -102,8 +102,7 @@ class Req_PayScreen extends Component {
   render() {
     const {navigation} = this.props;
     const {visible} = this.state;
-    console.log('req_pay');
-    console.log('visible: ', visible);
+
     return (
       <ScrollView>
         <View style={{flex: 1}}>

@@ -22,7 +22,6 @@ class Dept_FdsScreen extends Component {
   }
 
   render() {
-    //console.log('가져온 dept:', this.state.dept);
     const {navigation} = this.props;
     const {datas, dept} = this.state;
     return (
