@@ -14,7 +14,7 @@ import Divider from 'react-native-paper';
 const {height, width} = Dimensions.get('window');
 let total_data = 0;
 const PayCard = ({payInfo, navigation}) => {
-  total_data = total_data + payInfo.req_cost;
+  total_data = total_data + payInfo.req_cost / payInfo.emp_num;
   return (
     <View
       style={{
@@ -89,7 +89,7 @@ class Analyze_ListScreen extends Component {
     let datas = await axios.get('http://54.180.86.174/employees/2017/costs');
     let costsum = 0;
     for (let i = 0; i < datas.data.length; i++) {
-      costsum += datas.data[i].req_cost;
+      costsum = costsum + datas.data[i].req_cost / datas.data[i].emp_num;
     }
 
     this.setState({
