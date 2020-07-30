@@ -1,11 +1,6 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
-import {
-  StackNavigator_Home,
-  StackNavigator_Emp,
-  StackNavigator_RetManager,
-  StackNavigator_Emp_PayDept,
-} from './StackNavigator';
+import {StackNavigator_Emp, StackNavigator_Emp_PayDept} from './StackNavigator';
 import routes from '../../routes';
 
 const Drawer = createDrawerNavigator();

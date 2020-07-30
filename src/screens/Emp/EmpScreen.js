@@ -6,9 +6,10 @@ import {
   Text,
   StyleSheet,
   Image,
+  Dimensions,
 } from 'react-native';
 import routes from '../../../routes';
-
+const {height, width} = Dimensions.get('window');
 class EmpScreen extends Component {
   render() {
     const {navigation} = this.props;
@@ -41,7 +42,7 @@ class EmpScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //flexDirection: 'column',
+
     backgroundColor: 'transparent',
     backgroundColor: 'white',
   },
@@ -49,25 +50,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: '#F5D69A',
-    // marginTop: 50,
   },
   button: {
-    marginTop: 80,
+    marginTop: height * 0.15,
     alignSelf: 'center',
     elevation: 10,
     borderRadius: 10,
     padding: 30,
     borderColor: 'gray',
     backgroundColor: '#ECB03E',
-    width: 200,
+    width: width * 0.5,
   },
   logo: {
-    width: 80,
-    height: 25,
-
+    width: width * 0.2,
+    height: height * 0.03,
     position: 'absolute',
-    bottom: 10,
-    right: 10,
+    bottom: height * 0.01,
+    right: width * 0.02,
   },
   buttonText: {
     fontFamily: 'Jua-Regular',

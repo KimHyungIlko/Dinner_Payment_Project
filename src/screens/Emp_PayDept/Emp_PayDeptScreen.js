@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Dimensions,
+} from 'react-native';
 import axios from 'react-native-axios';
 import {Button, Dialog, Paragraph, Portal, Provider} from 'react-native-paper';
 import routes from '../../../routes';
+const {height, width} = Dimensions.get('window');
 class Emp_PayDeptScreen extends Component {
   constructor(props) {
     super(props);
@@ -124,31 +132,22 @@ class Emp_PayDeptScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //flexDirection: 'column',
     backgroundColor: 'white',
   },
   pointView: {
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: '#F5D69A',
-    // marginTop: 50,
   },
   button: {
-    marginTop: 80,
+    marginTop: height * 0.15,
     alignSelf: 'center',
     elevation: 10,
     borderRadius: 10,
     padding: 30,
     borderColor: 'gray',
     backgroundColor: '#ECB03E',
-    width: 200,
-  },
-  image: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
+    width: width * 0.5,
   },
   buttonText: {
     fontFamily: 'Jua-Regular',
@@ -157,11 +156,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   logo: {
-    width: 80,
-    height: 25,
+    width: width * 0.2,
+    height: height * 0.03,
     position: 'absolute',
-    bottom: 10,
-    right: 10,
+    bottom: height * 0.01,
+    right: width * 0.02,
   },
 });
 export default Emp_PayDeptScreen;

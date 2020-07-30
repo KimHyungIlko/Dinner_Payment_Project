@@ -1,6 +1,5 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from '../screens/Home/HomeScreen';
 
 import {FdsScreen, FDSList} from '../screens/Emp_PayDept/FdsScreen';
 import Emp_PayDeptScreen from '../screens/Emp_PayDept/Emp_PayDeptScreen';
@@ -39,33 +38,6 @@ import {Tab_Emp_Anl, Tab_Mgr_Anl} from './TabNavigator';
 */
 
 const Stack = createStackNavigator();
-
-// 홈
-const StackNavigator_Home = ({navigation}) => {
-  return (
-    <Stack.Navigator
-      initialRouteName={routes.Home}
-      screenOptions={{
-        title: '홈',
-        headerStyle: {
-          backgroundColor: 'white',
-        },
-        headerTintColor: 'black',
-        headerBackTitle: 'Back',
-        headerRight: () => (
-          <MaterialIcons.Button
-            name="dehaze"
-            color="black"
-            size={25}
-            backgroundColor="transparent"
-            onPress={() => navigation.openDrawer()}
-          />
-        ),
-      }}>
-      <Stack.Screen name={routes.Home} component={HomeScreen} />
-    </Stack.Navigator>
-  );
-};
 
 // 직원용 flow
 const StackNavigator_Emp = ({navigation}) => {
@@ -175,4 +147,4 @@ const StackNavigator_Emp_PayDept = ({navigation}) => {
   );
 };
 
-export {StackNavigator_Home, StackNavigator_Emp, StackNavigator_Emp_PayDept};
+export {StackNavigator_Emp, StackNavigator_Emp_PayDept};

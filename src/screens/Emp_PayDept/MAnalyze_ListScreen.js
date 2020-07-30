@@ -1,16 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
 import {Table, TableWrapper, Row, Col} from 'react-native-table-component';
-import {
-  VictoryBar,
-  VictoryLine,
-  VictoryChart,
-  VictoryAxis,
-  VictoryZoomContainer,
-  VictoryBrushContainer,
-  VictoryTheme,
-} from 'victory-native';
 import axios from 'react-native-axios';
+const {height, width} = Dimensions.get('window');
 class MAnalyze_ListScreen extends Component {
   constructor(props) {
     super(props);

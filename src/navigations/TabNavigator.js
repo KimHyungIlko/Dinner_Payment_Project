@@ -2,8 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React, {Component} from 'react';
 import Analyze_ListScreen from '../screens/Emp/Analyze_ListScreen';
 import Analyze_GraphScreen from '../screens/Emp/Analyze_GraphScreen';
-import Ret_Anl_ListScreen from '../screens/Ret_Manager/Ret_Anl_ListScreen';
-import Ret_Anl_GraphScreen from '../screens/Ret_Manager/Ret_Anl_GraphScreen';
+
 import MAnalyze_GraphScreen from '../screens/Emp_PayDept/MAnalyze_GraphScreen';
 import MAnalyze_ListScreen from '../screens/Emp_PayDept/MAnalyze_ListScreen';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';

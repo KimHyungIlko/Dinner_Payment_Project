@@ -90,17 +90,17 @@ class Ret_ListScreen extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    marginTop: 15,
-    marginBottom: 5,
+    marginTop: height * 0.01,
+    marginBottom: height * 0.005,
     alignSelf: 'center',
-    height: 200,
+    height: height * 0.25,
     width: width * 0.9,
     elevation: 3,
     borderRadius: 10,
   },
   img_back: {flex: 1, justifyContent: 'flex-end'},
   text: {
-    marginLeft: 10,
+    marginLeft: width * 0.02,
     fontSize: 20,
     color: 'white',
     fontFamily: 'Jua-Regular',
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   text2: {
-    marginLeft: 10,
+    marginLeft: width * 0.02,
     fontSize: 15,
     color: 'white',
     justifyContent: 'flex-end',

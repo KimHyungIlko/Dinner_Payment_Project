@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -8,13 +7,14 @@ import {
   ImageBackground,
   Dimensions,
 } from 'react-native';
-import {Table, TableWrapper, Row, Col} from 'react-native-table-component';
+
 import axios from 'react-native-axios';
-import Divider from 'react-native-paper';
+
 const {height, width} = Dimensions.get('window');
 let total_data = 0;
 const PayCard = ({payInfo, navigation}) => {
   total_data = total_data + payInfo.req_cost / payInfo.emp_num;
+
   return (
     <View
       style={{
@@ -45,7 +45,7 @@ const PayCard = ({payInfo, navigation}) => {
           <View
             style={{
               justifyContent: 'flex-start',
-              marginLeft: 30,
+              marginLeft: width * 0.1,
             }}>
             <Text style={styles.left_title}>사용 식대:</Text>
             <Text style={styles.left_title}>인원수 :</Text>
@@ -53,9 +53,9 @@ const PayCard = ({payInfo, navigation}) => {
           </View>
           <View
             style={{
-              marginLeft: 10,
+              marginLeft: width * 0.01,
               position: 'absolute',
-              right: 20,
+              right: width * 0.02,
             }}>
             <View style={styles.rows}>
               <Text style={styles.text}>{payInfo.req_cost}</Text>
@@ -88,8 +88,10 @@ class Analyze_ListScreen extends Component {
   async componentDidMount() {
     let datas = await axios.get('http://54.180.86.174/employees/2017/costs');
     let costsum = 0;
+    let costsum_list = [];
     for (let i = 0; i < datas.data.length; i++) {
-      costsum = costsum + datas.data[i].req_cost / datas.data[i].emp_num;
+      costsum += datas.data[i].req_cost / datas.data[i].emp_num;
+      costsum_list.push(costsum);
     }
 
     this.setState({
@@ -98,24 +100,31 @@ class Analyze_ListScreen extends Component {
       total: costsum,
     });
   }
+
+  componentWillUnmount() {
+    total_data = 0;
+  }
+
   render() {
     const {datas, name, total} = this.state;
     const {navigation} = this.props;
     return (
-      <ScrollView style={{backgroundColor: 'white'}}>
-        <Text style={styles.head}>{name}님의 야식대 사용 내역</Text>
+      <View>
+        <ScrollView style={{backgroundColor: 'white', height: height * 0.82}}>
+          <Text style={styles.head}>{name}님의 야식대 사용 내역</Text>
 
-        {datas.map((data) => {
-          return (
-            <PayCard key={data.id} payInfo={data} navigation={navigation} />
-          );
-        })}
+          {datas.map((data) => {
+            return (
+              <PayCard key={data.id} payInfo={data} navigation={navigation} />
+            );
+          })}
+        </ScrollView>
         <View style={styles.totalbox}>
           <Text style={styles.total}>{name}</Text>
           <Text style={{fontSize: 15}}>님의 이번달 야식대 사용 총 금액:</Text>
           <Text style={styles.total}>{total}원</Text>
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -128,7 +137,8 @@ const styles = StyleSheet.create({
   head: {
     textAlign: 'center',
     fontSize: 20,
-    paddingTop: 5,
+    paddingTop: height * 0.01,
+    paddingBottom: height * 0.01,
     fontFamily: 'Jua-Regular',
     color: 'white',
     borderBottomColor: '#D1D1D1',
@@ -145,14 +155,14 @@ const styles = StyleSheet.create({
     height: height * 0.035,
     fontFamily: 'Jua-Regular',
     fontSize: 15,
-    paddingTop: 5,
+    paddingTop: height * 0.008,
     color: '#686458',
   },
   timeTitle: {
     height: height * 0.035,
     fontFamily: 'Jua-Regular',
     fontSize: 15,
-    paddingTop: 5,
+    paddingTop: height * 0.008,
     color: '#686458',
     alignItems: 'flex-end',
   },
