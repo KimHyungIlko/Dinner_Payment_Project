@@ -55,7 +55,10 @@ const RetCard = ({retInfo, navigation}) => {
         imageStyle={{borderRadius: 10, borderColor: 'gray', borderWidth: 0.5}}
         source={{uri: retInfo.ret_img}}>
         <Text style={styles.text}>{retInfo.name}</Text>
-        <Text style={styles.text2}>매출: {retInfo.profit}원</Text>
+        <Text style={styles.text2}>
+          매출:{' '}
+          {retInfo.profit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+        </Text>
       </ImageBackground>
     </TouchableOpacity>
   );

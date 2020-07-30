@@ -107,9 +107,7 @@ class Req_PayScreen extends Component {
       <ScrollView>
         <View style={{flex: 1}}>
           <Image style={styles.img} source={{uri: this.state.image}} />
-          <Text style={styles.title}>
-            {this.state.name} {'\n'}
-          </Text>
+          <Text style={styles.title}>{this.state.name}</Text>
           <View style={styles.infobox}>
             <Text style={styles.text}>소개 : </Text>
             <Text style={styles.info}>{this.state.info}</Text>

@@ -93,13 +93,26 @@ class FDSList extends Component {
                         부서 인원: {data.totalEmpNum} 명
                       </Text>
                       <Text style={styles.info}>
-                        할당 금액 :{data.assignCosts} 원
+                        할당 금액 :
+                        {data.assignCosts
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                        원
                       </Text>
                       <Text style={styles.info}>
-                        사용 금액: {data.costs} 원
+                        사용 금액:{' '}
+                        {data.costs
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                        원
                       </Text>
                       <Text style={styles.info}>
-                        차액: {data.costs - data.assignCosts} 원
+                        차액:{' '}
+                        {data.costs -
+                          data.assignCosts
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                        원
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -192,10 +205,14 @@ class FDSList extends Component {
                               가게명: {data.ret_name}
                             </Text>
                             <Text style={styles.emp_info}>
-                              인원: {data.emp_num}
+                              인원: {data.emp_num} 명
                             </Text>
                             <Text style={styles.emp_info}>
-                              사용 금액: {data.cost}
+                              사용 금액:{' '}
+                              {data.cost
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                              원
                             </Text>
                           </View>
                           <View

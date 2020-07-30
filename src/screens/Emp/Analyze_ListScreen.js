@@ -58,7 +58,11 @@ const PayCard = ({payInfo, navigation}) => {
               right: width * 0.02,
             }}>
             <View style={styles.rows}>
-              <Text style={styles.text}>{payInfo.req_cost}</Text>
+              <Text style={styles.text}>
+                {payInfo.req_cost
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              </Text>
               <Text style={styles.left_title}>원</Text>
             </View>
             <View style={styles.rows}>
@@ -66,7 +70,9 @@ const PayCard = ({payInfo, navigation}) => {
               <Text style={styles.left_title}>명</Text>
             </View>
             <View style={styles.rows}>
-              <Text style={styles.text}>{total_data}</Text>
+              <Text style={styles.text}>
+                {total_data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              </Text>
               <Text style={styles.left_title}>원</Text>
             </View>
             <Text style={styles.timeTitle}>
@@ -122,7 +128,9 @@ class Analyze_ListScreen extends Component {
         <View style={styles.totalbox}>
           <Text style={styles.total}>{name}</Text>
           <Text style={{fontSize: 15}}>님의 이번달 야식대 사용 총 금액:</Text>
-          <Text style={styles.total}>{total}원</Text>
+          <Text style={styles.total}>
+            {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+          </Text>
         </View>
       </View>
     );

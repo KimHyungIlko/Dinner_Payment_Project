@@ -32,7 +32,10 @@ const EmployeesList = ({selectedDept, empCostList}) => {
             right={() => (
               <View style={{justifyContent: 'center'}}>
                 <Text style={styles.text}>
-                  {item.req_cost}원 ({item.ret_name})
+                  {item.req_cost
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  원 ({item.ret_name})
                 </Text>
                 <Text style={styles.text}>
                   {item.req_date} / {item.req_time}

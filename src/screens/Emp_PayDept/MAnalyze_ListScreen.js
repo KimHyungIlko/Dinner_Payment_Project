@@ -7,7 +7,7 @@ class MAnalyze_ListScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableHead: [' '],
+      tableHead: [''],
       tableTitle: [],
       costs: [],
       widthArr: [120, 120, 120, 120, 120, 120, 120],
@@ -35,7 +35,9 @@ class MAnalyze_ListScreen extends Component {
         tablehead_list.push(datas.data[i].ret_name);
       }
 
-      rowdata.push(datas.data[i].costs);
+      rowdata.push(
+        datas.data[i].costs.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+      );
       if (
         datas.data[i].ret_name == 'ALL Restaurants' &&
         i != datas.data.length - 1
@@ -51,7 +53,9 @@ class MAnalyze_ListScreen extends Component {
     ////////////////////////////////
     let ret_costs = [];
     for (let i = 0; i < datas2.data.length; i++) {
-      ret_costs.push(datas2.data[i].profit);
+      ret_costs.push(
+        datas2.data[i].profit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+      );
     }
 
     ret_costs.push(datas.data[datas.data.length - 1].costs);
@@ -70,6 +74,7 @@ class MAnalyze_ListScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.head}>부서별 야식대 사용금액</Text>
+        <Text>단위: (원)</Text>
         <ScrollView horizontal={true}>
           <View>
             <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>

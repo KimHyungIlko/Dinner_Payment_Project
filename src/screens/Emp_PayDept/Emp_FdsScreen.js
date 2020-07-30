@@ -81,9 +81,15 @@ class Emp_FdsScreen extends Component {
                       <Text style={styles.emp_info}>
                         가게명: {data.ret_name}
                       </Text>
-                      <Text style={styles.emp_info}>인원: {data.emp_num}</Text>
                       <Text style={styles.emp_info}>
-                        사용 금액: {data.req_cost}
+                        인원: {data.emp_num} 명
+                      </Text>
+                      <Text style={styles.emp_info}>
+                        사용 금액:{' '}
+                        {data.req_cost
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                        원
                       </Text>
                     </View>
                     <View

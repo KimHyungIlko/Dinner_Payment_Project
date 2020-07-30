@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {
   View,
-  Button,
   Text,
   StyleSheet,
   Image,
   Dimensions,
-  ImageBackground,
   TouchableOpacity,
 } from 'react-native';
 import axios from 'react-native-axios';
@@ -58,7 +56,9 @@ class Confirm_ReqPayScreen extends Component {
             </View>
             <View style={styles.textline}>
               <Text style={styles.inputText}>
-                {this.props.route.params.price}
+                {this.props.route.params.price
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Text>
               <Text style={styles.staticText}>원이 결제되었습니다</Text>
             </View>
