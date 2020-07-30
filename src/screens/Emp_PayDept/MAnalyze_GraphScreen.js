@@ -16,6 +16,7 @@ import axios from 'react-native-axios';
 import {List, Divider} from 'react-native-paper';
 import {Picker} from '@react-native-community/picker';
 // 해당 부서에서 결제한 직원들의 리스트 목록 컴포넌트
+const {height, width} = Dimensions.get('window');
 const EmployeesList = ({selectedDept, empCostList}) => {
   return (
     <List.Section>
@@ -103,9 +104,7 @@ class MAnalyze_GraphScreen extends Component {
       <View style={styles.container}>
         <ScrollView>
           {/* 막대 그래프 */}
-          <View
-          // style={{flexDirection: 'row', alignContent: 'center'}}
-          >
+          <View>
             <Text style={styles.head}>부서별 야식대 사용금액</Text>
             <Picker
               selectedValue={this.state.department}
@@ -156,6 +155,26 @@ class MAnalyze_GraphScreen extends Component {
               }}
             />
           </VictoryChart>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <View
+              style={{
+                width: width * 0.03,
+                backgroundColor: '#ECB03E',
+              }}></View>
+            <Text style={{textAlign: 'center', paddingRight: width * 0.2}}>
+              사용 금액
+            </Text>
+            <View
+              style={{
+                width: width * 0.03,
+                backgroundColor: '#7D756B',
+              }}></View>
+            <Text style={{textAlign: 'center'}}>남은 금액</Text>
+          </View>
           {/* 부서내 직원들 결제 리스트 */}
           <View style={styles.list}>
             <EmployeesList
@@ -190,7 +209,7 @@ const styles = StyleSheet.create({
     height: 'fit-contents',
   },
   picker: {
-    height: 50,
+    height: height * 0.035,
     width: '100%',
     alignSelf: 'flex-start',
     marginLeft: '1%',
