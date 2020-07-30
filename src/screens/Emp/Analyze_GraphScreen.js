@@ -10,7 +10,7 @@ import {
 } from 'victory-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import axios from 'react-native-axios';
-
+const {height, width} = Dimensions.get('window');
 class Analyze_GraphScreen extends Component {
   constructor(props) {
     super(props);
@@ -50,81 +50,80 @@ class Analyze_GraphScreen extends Component {
   render() {
     const state = this.state;
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.head}>
-            {state.deptname} {state.name}
-          </Text>
-          <Text style={styles.subTitle}>월별 개인 사용 현황</Text>
-          <View style={{height: 350}}>
-            <ScrollView horizontal={true}>
-              <VictoryChart
-                //width={450}
-                // height={300}
-                style={{width: 'fit-contents', height: 'fit-contents'}}
-                padding={{top: 0, left: 60, right: 50, bottom: 50}}
-                scale={{x: 'time'}}
-                containerComponent={
-                  <VictoryZoomContainer
-                    responsive={false}
-                    zoomDimension="x"
-                    zoomDomain={this.state.zoomDomain}
-                    onZoomDomainChange={this.handleZoom.bind(this)}
-                  />
-                }>
-                <VictoryLine
-                  style={{
-                    data: {stroke: '#C83E3A'},
-                  }}
-                  data={state.total}
-                  x={0}
-                  y={1}
-                />
-                <VictoryAxis
-                  label="이번 달 사용 일자"
-                  style={{
-                    axisLabel: {padding: 30},
-                  }}
-                />
-                <VictoryAxis
-                  dependentAxis
-                  label="사용금액 (만원)"
-                  style={{
-                    axisLabel: {padding: 40},
-                  }}
-                />
-              </VictoryChart>
-            </ScrollView>
-          </View>
-
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+      <View style={styles.container}>
+        <Text style={styles.head}>
+          {state.deptname} {state.name}
+        </Text>
+        <Text style={styles.subTitle}>월별 개인 사용 현황</Text>
+        <View style={{height: 350}}>
+          <ScrollView horizontal={true}>
             <VictoryChart
-              width={250}
-              height={90}
-              style={styles.bottomGraph}
+              style={{
+                width: 'fit-contents',
+                height: 'fit-contents',
+              }}
+              padding={{top: 0, left: 60, right: 50, bottom: 50}}
               scale={{x: 'time'}}
-              padding={{top: 0, left: 0, right: 0, bottom: 30}}
               containerComponent={
-                <VictoryBrushContainer
+                <VictoryZoomContainer
                   responsive={false}
-                  brushDimension="x"
-                  brushDomain={this.state.selectedDomain}
-                  onBrushDomainChange={this.handleBrush.bind(this)}
+                  zoomDimension="x"
+                  zoomDomain={this.state.zoomDomain}
+                  onZoomDomainChange={this.handleZoom.bind(this)}
                 />
               }>
-              <VictoryAxis />
               <VictoryLine
                 style={{
-                  data: {stroke: 'tomato'},
+                  data: {stroke: '#C83E3A'},
                 }}
                 data={state.total}
                 x={0}
                 y={1}
               />
+              <VictoryAxis
+                label="이번 달 사용 일자"
+                style={{
+                  axisLabel: {padding: 30},
+                }}
+              />
+              <VictoryAxis
+                dependentAxis
+                label="사용금액 (만원)"
+                style={{
+                  axisLabel: {padding: 40},
+                }}
+              />
             </VictoryChart>
-          </View>
+          </ScrollView>
         </View>
-      </ScrollView>
+
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <VictoryChart
+            width={250}
+            height={90}
+            style={styles.bottomGraph}
+            scale={{x: 'time'}}
+            padding={{top: 0, left: 0, right: 0, bottom: 30}}
+            containerComponent={
+              <VictoryBrushContainer
+                responsive={false}
+                brushDimension="x"
+                brushDomain={this.state.selectedDomain}
+                onBrushDomainChange={this.handleBrush.bind(this)}
+              />
+            }>
+            <VictoryAxis />
+            <VictoryLine
+              style={{
+                data: {stroke: 'tomato'},
+              }}
+              data={state.total}
+              x={0}
+              y={1}
+            />
+          </VictoryChart>
+        </View>
+      </View>
     );
   }
 }

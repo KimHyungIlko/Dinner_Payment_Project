@@ -33,7 +33,9 @@ const EmployeesList = ({selectedDept, empCostList}) => {
                 <Text style={styles.text}>
                   {item.req_cost}원 ({item.ret_name})
                 </Text>
-                <Text style={styles.text}>{item.req_date}</Text>
+                <Text style={styles.text}>
+                  {item.req_date} / {item.req_time}
+                </Text>
               </View>
             )}
           />

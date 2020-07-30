@@ -91,7 +91,9 @@ class Emp_FdsScreen extends Component {
                         paddingRight: width * 0.01,
                         justifyContent: 'flex-end',
                       }}>
-                      <Text>{data.req_date}</Text>
+                      <Text>
+                        {data.req_date}/{data.req_time}
+                      </Text>
                     </View>
                   </View>
                 </View>

@@ -9,6 +9,7 @@ class App extends Component {
       SplashScreen.hide();
     }, 500);
   }
+  // Last project
   render() {
     return (
       <NavigationContainer>

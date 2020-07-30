@@ -119,33 +119,6 @@ const StackNavigator_Emp = ({navigation}) => {
   );
 };
 
-// 업주용 flow
-const StackNavigator_RetManager = ({navigation}) => {
-  return (
-    <Stack.Navigator
-      initialRouteName={routes.Ret_Profit}
-      screenOptions={{
-        title: '음식점 매출 현황',
-        headerStyle: {
-          backgroundColor: 'white',
-        },
-        headerTintColor: 'black',
-        headerBackTitle: 'Back',
-        headerRight: () => (
-          <MaterialIcons.Button
-            name="dehaze"
-            color="black"
-            size={25}
-            backgroundColor="transparent"
-            onPress={() => navigation.openDrawer()}
-          />
-        ),
-      }}>
-      <Stack.Screen name={routes.Ret_Profit} component={Tab_Ret_Anl} />
-    </Stack.Navigator>
-  );
-};
-
 // 총무부 flow
 const StackNavigator_Emp_PayDept = ({navigation}) => {
   return (
@@ -202,9 +175,4 @@ const StackNavigator_Emp_PayDept = ({navigation}) => {
   );
 };
 
-export {
-  StackNavigator_Home,
-  StackNavigator_Emp,
-  StackNavigator_RetManager,
-  StackNavigator_Emp_PayDept,
-};
+export {StackNavigator_Home, StackNavigator_Emp, StackNavigator_Emp_PayDept};

@@ -32,8 +32,17 @@ class MAnalyze_ListScreen extends Component {
       tableData = [];
     tablehead_list.push(' ');
     for (let i = 0; i < datas.data.length; i++) {
-      tabletitle_list.push(datas.data[i].dept_name);
-      tablehead_list.push(datas.data[i].ret_name);
+      if (datas.data[i].dept_name == 'ALL Departments') {
+        tabletitle_list.push('총 합계');
+      } else {
+        tabletitle_list.push(datas.data[i].dept_name);
+      }
+      if (datas.data[i].ret_name == 'ALL Restaurants') {
+        tablehead_list.push('총 합계');
+      } else {
+        tablehead_list.push(datas.data[i].ret_name);
+      }
+
       rowdata.push(datas.data[i].costs);
       if (
         datas.data[i].ret_name == 'ALL Restaurants' &&

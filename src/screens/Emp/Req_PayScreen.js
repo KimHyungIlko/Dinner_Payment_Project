@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     paddingTop: height * 0.02,
     paddingLeft: width * 0.02,
     backgroundColor: '#81776C',
-    height: height * 0.1,
+    height: height * 0.12,
   },
   text: {
     fontFamily: 'Jua-Regular',
