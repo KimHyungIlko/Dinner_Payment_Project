@@ -171,7 +171,7 @@ class MAnalyze_GraphScreen extends Component {
             <View
               style={{
                 width: width * 0.03,
-                backgroundColor: '#7D756B',
+                backgroundColor: '#AFAAAB',
               }}></View>
             <Text style={{textAlign: 'center'}}>남은 금액</Text>
           </View>
